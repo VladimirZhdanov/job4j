@@ -13,8 +13,8 @@ public class Converter {
      * @param value - ruble.
      * @return - euro.
      */
-    public double rubleToEuro (double value) {
-        return value/rateOfEuro;
+    public double rubleToEuro(double value) {
+        return value / rateOfEuro;
     }
 
     /**
@@ -22,8 +22,8 @@ public class Converter {
      * @param value - ruble.
      * @return dollar.
      */
-    public double rubleToDollar (double value) {
-        return value/rateOfDollar;
+    public double rubleToDollar(double value) {
+        return value / rateOfDollar;
     }
 
     /**
@@ -31,8 +31,8 @@ public class Converter {
      * @param value - euro.
      * @return ruble.
      */
-    public double euroToRuble (int value) {
-        return value*rateOfEuro;
+    public double euroToRuble(int value) {
+        return value * rateOfEuro;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Converter {
      * @param value - dollar.
      * @return ruble.
      */
-    public double dollarToRuble (int value) {
-        return value*rateOfDollar;
+    public double dollarToRuble(int value) {
+        return value * rateOfDollar;
     }
 }
