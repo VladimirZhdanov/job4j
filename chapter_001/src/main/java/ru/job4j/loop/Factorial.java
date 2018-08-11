@@ -1,11 +1,24 @@
 package ru.job4j.loop;
 
+/**
+ * Factorial
+ *
+ * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
 public class Factorial {
+
+    /**
+     * Sum of even numbers within start and finish.
+     * @param n - nummber.
+     * @return Factorial of n.
+     */
     public int calc(int n) {
-        int sum = 1;
+        int fact = 1;
         for (int i = 1; i <= n; i++) {
-            sum = sum * i;
+            fact = fact * i;
         }
-        return sum;
+        return fact;
     }
 }
