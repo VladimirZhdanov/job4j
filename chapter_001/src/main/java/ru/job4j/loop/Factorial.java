@@ -10,7 +10,7 @@ package ru.job4j.loop;
 public class Factorial {
 
     /**
-     * Sum of even numbers within start and finish.
+     * Factorial.
      * @param n - nummber.
      * @return Factorial of n.
      */
