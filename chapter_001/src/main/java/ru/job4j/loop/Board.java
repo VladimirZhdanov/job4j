@@ -1,7 +1,7 @@
 package ru.job4j.loop;
 
 /**
- * Factorial
+ * Board
  *
  * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
  * @version $Id$
