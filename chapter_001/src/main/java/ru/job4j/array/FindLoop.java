@@ -10,7 +10,7 @@ package ru.job4j.array;
 public class FindLoop {
 
     /**
-     * Board of Strings.
+     * Find a index.
      * @param data - array.
      * @param el - nummber.
      * @return index of el or -1.
