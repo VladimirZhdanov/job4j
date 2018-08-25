@@ -15,12 +15,11 @@ public class Check {
      * @return boolean.
      */
     public boolean mono(boolean[] data) {
-        boolean result = false;
+        boolean result = true;
         for (int i = 0; i < data.length - 1; i++) {
             if (data[i] != data[i + 1]) {
-                return result;
+                result = false;
             }
-            result = true;
         }
         return result;
     }
