@@ -11,28 +11,23 @@ public class BubbleSort {
 
     /**
      * BubbleSort a array.
-     * @param array - array.
+     *
+     * @param arr - array.
      * @return sorted array.
      */
-    public int[] sort(int[] array) {
-        int goodPairsCounter = 0;
-        int i = 0;
-        while (true) {
-            if (array[i] > array[i + 1]) {
-                int q = array[i];
-                array[i] = array[i + 1];
-                array[i + 1] = q;
-                goodPairsCounter = 0;
-            } else {
-                goodPairsCounter++;
-            }
-            i++;
-            if (i == array.length - 1) {
-                i = 0;
-            }
-            if (goodPairsCounter == array.length - 1) {
-                return array;
+    public int[] sort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+
+                    // swap temp and arr[i]
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
             }
         }
+        return arr;
     }
 }
