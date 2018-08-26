@@ -3,9 +3,9 @@ package ru.job4j.array;
 public class Matrix {
 
     /**
-     * Check equality of values in array.
+     * Create multiplication table.
      * @param size - number, the size both sides.
-     * @return multiply table.
+     * @return multiplication table.
      */
     public int[][] multiple(int size) {
         int[][] table = new int[size][size];
