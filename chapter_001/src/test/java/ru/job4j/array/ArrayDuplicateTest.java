@@ -1,10 +1,8 @@
 package ru.job4j.array;
 
 import org.junit.Test;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * ArrayDuplicateTest
  *
@@ -17,9 +15,8 @@ public class ArrayDuplicateTest {
     public void whenRemoveDuplicatesThenArrayWithoutDuplicate() {
         ArrayDuplicate check = new ArrayDuplicate();
         String[] input = new String[]  {"Привет", "Мир", "Привет", "Супер", "Мир"};
-        String[] result = new String[]  {"Привет", "Мир", "Супер", "Мир"};
-        assertThat(result, is(result));
+        String[] result = check.remove(input);
+        String[] expect = new String[]  {"Привет", "Супер", "Мир"};
+        assertThat(result, is(expect));
     }
-    //напишите здесь тест, проверяющий удаление дубликатов строк из массива строк.
 }
-
