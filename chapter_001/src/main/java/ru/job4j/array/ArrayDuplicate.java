@@ -15,18 +15,16 @@ public class ArrayDuplicate {
      * @return array without duplicates.
      */
     public String[] remove(String[] array) {
-        int temp = 0;
         int n = array.length;
-        for (int i = 0; i < n; i++) {
-            for (int j = 1; j < n - i - 1 - temp; j++) {
-                if (array[i].equals(array[j])) {
-                    String a = array[j];
-                    array[j] = array[n - 1 - temp];
-                    array[n - 1 - temp] = a;
-                    temp++;
+        for (int out = 0; out < n; out++) {
+            for (int inner = out + 1; inner < n; inner++) {
+                if (array[out].equals(array[inner])) {
+                    array[inner] = array[n - 1];
+                    n--;
+                    inner--;
                 }
             }
         }
-        return Arrays.copyOf(array, n - temp);
+        return Arrays.copyOf(array, n);
     }
 }
