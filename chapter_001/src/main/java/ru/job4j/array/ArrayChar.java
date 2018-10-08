@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 /**
  * ArrayChar
  *
@@ -9,11 +8,9 @@ package ru.job4j.array;
  */
 public class ArrayChar {
     private char[] data;
-
     public ArrayChar(String line) {
         this.data = line.toCharArray();
     }
-
     /**
      * Check that the prefix equals the prefix of main word.
      * @param prefix prefix.
@@ -28,7 +25,6 @@ public class ArrayChar {
                 break;
             }
         }
-        // проверить. что массив data имеет первые элементы одинаковые с value
         return result;
     }
 }

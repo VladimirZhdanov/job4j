@@ -1,10 +1,8 @@
 package ru.job4j.loop;
-
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * FactorialTest
  *
@@ -19,7 +17,6 @@ public class FactorialTest {
         int result = sum.calc(5);
         assertThat(result, is(120));
     }
-
     @Test
     public void when0Then1() {
         Factorial sum = new Factorial();

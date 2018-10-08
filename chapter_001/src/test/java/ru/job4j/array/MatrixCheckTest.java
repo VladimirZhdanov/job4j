@@ -10,7 +10,6 @@ package ru.job4j.array;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 public class MatrixCheckTest {
     @Test
     public void whenDataMonoByTrueThenTrue1() {
@@ -23,7 +22,6 @@ public class MatrixCheckTest {
         boolean result = check.mono(input);
         assertThat(result, is(true));
     }
-
     @Test
     public void whenDataNotMonoByTrueThenFalse1() {
         MatrixCheck check = new MatrixCheck();
@@ -35,7 +33,6 @@ public class MatrixCheckTest {
         boolean result = check.mono(input);
         assertThat(result, is(false));
     }
-
     @Test
     public void whenDataNotMonoByTrueThenFalse2() {
         MatrixCheck check = new MatrixCheck();
@@ -46,7 +43,6 @@ public class MatrixCheckTest {
         boolean result = check.mono(input);
         assertThat(result, is(false));
     }
-
     @Test
     public void whenDataMonoByTrueThenTrue2() {
         MatrixCheck check = new MatrixCheck();
@@ -57,7 +53,6 @@ public class MatrixCheckTest {
         boolean result = check.mono(input);
         assertThat(result, is(true));
     }
-
     @Test
     public void whenDataNotMonoByTrueThenFalse3() {
         MatrixCheck check = new MatrixCheck();
@@ -71,7 +66,6 @@ public class MatrixCheckTest {
         boolean result = check.mono(input);
         assertThat(result, is(false));
     }
-
     @Test
     public void whenDataMonoByTrueThenTrue3() {
         MatrixCheck check = new MatrixCheck();

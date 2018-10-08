@@ -1,9 +1,7 @@
 package ru.job4j.calculator;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Test.
  *
@@ -11,9 +9,7 @@ import static org.junit.Assert.assertThat;
  * @version $Id$
  * @since 0.1
  */
-
 public class CalculatorTest {
-
     /**
      * Test add.
      */
@@ -25,7 +21,6 @@ public class CalculatorTest {
         double expected = 2D;
         assertThat(result, is(expected));
     }
-
     /**
      * Test subtract.
      */
@@ -37,7 +32,6 @@ public class CalculatorTest {
         double expected = 0D;
         assertThat(result, is(expected));
     }
-
     /**
      * Test div.
      */
@@ -49,7 +43,6 @@ public class CalculatorTest {
         double expected = 1D;
         assertThat(result, is(expected));
     }
-
     /**
      * Test multiply.
      */

@@ -1,5 +1,4 @@
 package ru.job4j.condition;
-
 /**
  * Calculation area of triangle.
  *
@@ -11,13 +10,11 @@ public class Triangle {
     private Point a;
     private Point b;
     private Point c;
-
     public Triangle(Point a, Point b, Point c) {
         this.a = a;
         this.b = b;
         this.c = c;
     }
-
     /**
      * Method of calculating the semi-perimeter along the lengths of the sides.
      *
@@ -33,7 +30,6 @@ public class Triangle {
     public double period(double ab, double ac, double bc) {
         return (ab + ac + bc) / 2d;
     }
-
     /**
      * Method of calculation area of a triangle.
      *
@@ -50,7 +46,6 @@ public class Triangle {
         }
         return rsl;
     }
-
     /**
      * Method checks possibility to make a triangle with the lengths.
      *
@@ -62,6 +57,5 @@ public class Triangle {
      */
     private boolean exist(double ab, double ac, double bc) {
         return (ab + ac > bc && ab + bc > ac && ac + bc > ab);
-
     }
 }

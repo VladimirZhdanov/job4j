@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 /**
  * Turn
  *
@@ -8,7 +7,6 @@ package ru.job4j.array;
  * @since 0.1
  */
 public class Turn {
-
     /**
      * Turn out the array
      * @param array - array.

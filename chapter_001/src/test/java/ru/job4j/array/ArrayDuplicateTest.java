@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -19,9 +18,7 @@ public class ArrayDuplicateTest {
         String[] result = check.remove(input);
         String[] expect = new String[]  {"Привет", "Супер", "Мир"};
         assertThat(result, arrayContainingInAnyOrder(expect));
-
     }
-
     @Test
     public void whenRemoveDuplicatesThenArrayWithoutDuplicate2() {
         ArrayDuplicate check = new ArrayDuplicate();

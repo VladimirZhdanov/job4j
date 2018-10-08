@@ -1,5 +1,4 @@
 package ru.job4j.loop;
-
 /**
  * Counter
  *
@@ -8,7 +7,6 @@ package ru.job4j.loop;
  * @since 0.1
  */
 public class Counter {
-
     /**
      * Sum of even numbers within start and finish.
      * @param start - nummber.

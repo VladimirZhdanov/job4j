@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 /**
  * BubbleSort
  *
@@ -8,7 +7,6 @@ package ru.job4j.array;
  * @since 0.1
  */
 public class BubbleSort {
-
     /**
      * BubbleSort a array.
      *
@@ -16,15 +14,13 @@ public class BubbleSort {
      * @return sorted array.
      */
     public int[] sort(int[] arr) {
-        int n = arr.length;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-
-                    // swap temp and arr[i]
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
+        int length = arr.length;
+        for (int out = 0; out < length - 1; out++) {
+            for (int inner = 0; inner < length - out - 1; inner++) {
+                if (arr[inner] > arr[inner + 1]) {
+                    int temp = arr[inner];
+                    arr[inner] = arr[inner + 1];
+                    arr[inner + 1] = temp;
                 }
             }
         }

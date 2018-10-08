@@ -1,9 +1,7 @@
 package ru.job4j.loop;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * BoardTest
  *
@@ -22,7 +20,6 @@ public class BoardTest {
                 )
         );
     }
-
     @Test
     public void when5x4() {
         Board board = new Board();

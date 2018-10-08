@@ -1,10 +1,8 @@
 package ru.job4j.loop;
-
 import org.junit.Test;
 import java.util.StringJoiner;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
-
 /**
  * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
  * @version $Id$
@@ -27,7 +25,6 @@ public class PaintTest {
                 )
         );
     }
-
     @Test
     public void whenPyramid4Left() {
         Paint paint = new Paint();
@@ -44,7 +41,6 @@ public class PaintTest {
                 )
         );
     }
-
     @Test
     public void whenPyramid() {
         Paint paint = new Paint();

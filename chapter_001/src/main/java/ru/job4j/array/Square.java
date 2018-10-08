@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 /**
  * Square
  *
@@ -8,7 +7,6 @@ package ru.job4j.array;
  * @since 0.1
  */
 public class Square {
-
     /**
      * Array of numbers that is raised to the power of 2.
      * @param bound - nummber.
@@ -19,7 +17,6 @@ public class Square {
         for (int i = 0; i < bound; i++) {
             rst[i] = (i + 1) * (i + 1);
         }
-        // заполнить массив через цикл элементами от 1 до bound возведенными в квадрат
         return rst;
     }
 }

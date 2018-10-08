@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 /**
  * MatrixCheck
  *
@@ -8,7 +7,6 @@ package ru.job4j.array;
  * @since 0.1
  */
 public class MatrixCheck {
-
     /**
      * Check a array.
      * @param data - array.
@@ -16,9 +14,9 @@ public class MatrixCheck {
      */
     public boolean mono(boolean[][] data) {
         boolean result = true;
-        int n = data.length;
-        for (int i = 0; i < n - 1; i++) {
-            if (data[i][i] != data[i + 1][i + 1] || data[i][n - 1 - i] != data[i + 1][n - 2 - i]) {
+        int length = data.length;
+        for (int i = 0; i < length - 1; i++) {
+            if (data[i][i] != data[i + 1][i + 1] || data[i][length - 1 - i] != data[i + 1][length - 2 - i]) {
                 result = false;
             }
         }

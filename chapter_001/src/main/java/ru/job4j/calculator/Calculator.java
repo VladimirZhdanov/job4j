@@ -1,5 +1,4 @@
 package ru.job4j.calculator;
-
 /**
  * Calculator.
  *
@@ -7,11 +6,8 @@ package ru.job4j.calculator;
  * @version $Id$
  * @since 0.1
  */
-
 public class Calculator {
-
     private double result;
-
     /**
      * sum.
      * @param fist - nummber + d.
@@ -20,7 +16,6 @@ public class Calculator {
     public void add(double fist, double second) {
         this.result = fist + second;
     }
-
     /**
      * subtract.
      * @param fist - nummber + d.
@@ -29,7 +24,6 @@ public class Calculator {
     public void subtract(double fist, double second) {
         this.result = fist - second;
     }
-
     /**
      * div.
      * @param fist - nummber + d.
@@ -38,7 +32,6 @@ public class Calculator {
     public void div(double fist, double second) {
         this.result = fist / second;
     }
-
     /**
      * multiply.
      * @param fist - nummber + d.
@@ -47,7 +40,6 @@ public class Calculator {
     public void multiply(double fist, double second) {
         this.result = fist * second;
     }
-
     /**
      * Method getResults.
      * @return result - nummber + d.

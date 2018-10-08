@@ -1,9 +1,7 @@
 package ru.job4j.converter;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Test.
  *
@@ -11,9 +9,7 @@ import static org.junit.Assert.assertThat;
  * @version $Id$
  * @since 0.1
  */
-
 public class ConverterTest {
-
     /**
      * Test rubleToEuro().
      */
@@ -23,7 +19,6 @@ public class ConverterTest {
         double result = converter.rubleToEuro(converter.rateOfEuro);
         assertThat(result, is(1d));
     }
-
     /**
      * Test rubleToDollar().
      */
