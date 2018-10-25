@@ -8,7 +8,7 @@ package ru.job4j.occupation;
  * @since 0.1
  */
 public class Teacher extends Profession {
-    public Diploma teach(Student student){
+    public Diploma teach(Student student) {
         return new Diploma();
     }
 }

@@ -8,7 +8,7 @@ package ru.job4j.occupation;
  * @since 0.1
  */
 public class Engineer extends Profession {
-    public Building build(Building building){
+    public Building build(Building building) {
         return new Building();
     }
 }
