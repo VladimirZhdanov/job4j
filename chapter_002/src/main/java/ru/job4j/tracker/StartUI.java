@@ -95,8 +95,9 @@ public class StartUI {
         Item item = this.tracker.findById(id);
         if (item == null) {
             System.out.println("The id is not exist!");
-        } else
+        } else {
             System.out.println(item);
+        }
     }
 
     /**
@@ -105,10 +106,11 @@ public class StartUI {
     private void deleteItem() {
         System.out.println("------------ Delete an item --------------");
         String id = this.input.ask("Enter id of the item :");
-        if (this.tracker.delete(id) == false) {
+        if (!this.tracker.delete(id)) {
             System.out.println("The id is not exist!");
-        } else
+        } else {
             System.out.println("------------ The item with id : " + id + " is deleted " + "-----------");
+        }
     }
 
     /**
@@ -120,8 +122,7 @@ public class StartUI {
         Item previous = this.tracker.findById(id);
         if (previous == null) {
             System.out.println("The id is not exist!");
-        } else
-        {
+        } else {
             System.out.println(previous);
             String name = this.input.ask("Enter a new name of the item :");
             String desc = this.input.ask("Enter a new description of the item :");
