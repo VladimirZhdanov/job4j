@@ -37,4 +37,11 @@ public class Item {
     public String getDescription() {
         return this.description;
     }
+
+    @Override
+    public String toString() {
+        return "Item with id: " + id
+                + ", name: " + name
+                + ", description: " + description;
+    }
 }

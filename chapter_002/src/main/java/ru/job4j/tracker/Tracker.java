@@ -39,28 +39,34 @@ public class Tracker {
      * @param item a new item.
      * @param id id of the old item.
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
+        boolean check = false;
         for (int index = 0; index != this.position; index++) {
             if (items[index].getId().equals(id)) {
                 item.setId(id);
                 items[index] = item;
+                check = true;
                 break;
             }
         }
+        return check;
     }
     /**
      * <p>Delete a item of the Tracker.</p>
      *
      * @param id id of a element of Tracker.
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean check = false;
         for (int index = 0; index != this.position; index++) {
             if (items[index].getId().equals(id)) {
                 System.arraycopy(this.items, index + 1, this.items, index, this.items.length - 1 - index);
                 position--;
+                check = true;
                 break;
             }
         }
+        return check;
     }
     /**
      * <p>Find all the elemets of the Tracker.</p>

@@ -67,14 +67,11 @@ public class StartUI {
      */
     private void showAll() {
         System.out.println("------------ Showing the all item of the Tracker --------------");
-        Item[] item = this.tracker.findAll();
-        for (int i = 0; i < item.length; i++) {
-            System.out.println("------------ The item with id : " + item[i].getId() + "-----------");
-            System.out.println("------------ Has name : " + item[i].getName() + "-----------");
-            System.out.println("------------ Has description : " + item[i].getDescription() + "-----------");
-            System.out.println("---------------------------------------------------------------------------");
+        Item[] itemOut = this.tracker.findAll();
+        for (Item itemIn : itemOut) {
+            System.out.println(itemIn);
         }
-        System.out.println("-------------------------------THE END-----------------------------------------");
+        System.out.println("------------------------------ THE END ------------------------");
     }
 
     /**
@@ -83,11 +80,9 @@ public class StartUI {
     private void findName() {
         System.out.println("------------ Search an item by name --------------");
         String name = this.input.ask("Enter name of the item :");
-        Item[] item = this.tracker.findByName(name);
-        for (int i = 0; i < item.length; i++) {
-            System.out.println("------------ The item with name : " + item[i].getName() + "-----------");
-            System.out.println("------------ Has id : " + item[i].getId() + "-----------");
-            System.out.println("------------ Has description : " + item[i].getDescription() + "-----------");
+        Item[] itemOut = this.tracker.findByName(name);
+        for (Item itemIn : itemOut) {
+            System.out.println(itemIn);
         }
     }
 
@@ -98,9 +93,10 @@ public class StartUI {
         System.out.println("------------ Search an item by id--------------");
         String id = this.input.ask("Enter id of the item :");
         Item item = this.tracker.findById(id);
-        System.out.println("------------ The item with id : " + item.getId() + "-----------");
-        System.out.println("------------ Has name : " + item.getName() + "-----------");
-        System.out.println("------------ Has description : " + item.getDescription() + "-----------");
+        if (item == null) {
+            System.out.println("The id is not exist!");
+        } else
+            System.out.println(item);
     }
 
     /**
@@ -109,8 +105,10 @@ public class StartUI {
     private void deleteItem() {
         System.out.println("------------ Delete an item --------------");
         String id = this.input.ask("Enter id of the item :");
-        this.tracker.delete(id);
-        System.out.println("------------ The item with id : " + id + " is deleted " + "-----------");
+        if (this.tracker.delete(id) == false) {
+            System.out.println("The id is not exist!");
+        } else
+            System.out.println("------------ The item with id : " + id + " is deleted " + "-----------");
     }
 
     /**
@@ -120,16 +118,17 @@ public class StartUI {
         System.out.println("------------ Edition a item --------------");
         String id = this.input.ask("Enter id of the item :");
         Item previous = this.tracker.findById(id);
-        System.out.println("------------ The item with id : " + previous.getId() + "-----------");
-        System.out.println("------------ Has name : " + previous.getName() + "-----------");
-        System.out.println("------------ Has description : " + previous.getDescription() + "-----------");
-        String name = this.input.ask("Enter a new name of the item :");
-        String desc = this.input.ask("Enter a new description of the item :");
-        Item next = new Item(name, desc);
-        this.tracker.replace(id, next);
-        System.out.println("------------ The item with id : " + next.getId() + "-----------");
-        System.out.println("------------ Has name : " + next.getName() + "-----------");
-        System.out.println("------------ Has description : " + next.getDescription() + "-----------");
+        if (previous == null) {
+            System.out.println("The id is not exist!");
+        } else
+        {
+            System.out.println(previous);
+            String name = this.input.ask("Enter a new name of the item :");
+            String desc = this.input.ask("Enter a new description of the item :");
+            Item next = new Item(name, desc);
+            this.tracker.replace(id, next);
+            System.out.println(next);
+        }
     }
 
     /**
