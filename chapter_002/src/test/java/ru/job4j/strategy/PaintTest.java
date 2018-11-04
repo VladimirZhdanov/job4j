@@ -20,9 +20,7 @@ import static org.junit.Assert.assertThat;
  */
 public class PaintTest {
 
-    // поле содержит дефолтный вывод в консоль.
     private final PrintStream stdout = System.out;
-    // буфер для результата.
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     @Before
@@ -55,9 +53,7 @@ public class PaintTest {
 
     @Test
     public void whenDrawTriangle() {
-        // выполняем действия пишушиее в консоль.
         new Paint().draw(new Triangle());
-        // проверяем результат вычисления
         assertThat(
                 new String(out.toByteArray()),
                 is(
