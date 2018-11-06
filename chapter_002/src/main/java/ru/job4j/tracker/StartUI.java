@@ -141,7 +141,7 @@ public class StartUI {
         String desc = this.input.ask("Enter a description of the item :");
         Item item = new Item(name, desc);
         this.tracker.add(item);
-        System.out.println("------------ The new item with id : " + item.getId() + "-----------");
+        System.out.println(item);
     }
 
     /**

@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -25,6 +26,17 @@ public class StartUITest {
     private Item item1 = this.tracker.add(new Item("test name1", "desc"));
     private Item item2 = this.tracker.add(new Item("test name2", "desc"));
     private Item item3 = this.tracker.add(new Item("test name3", "desc"));
+    private StringJoiner menuConstructor = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+            .add("Menu.")
+            .add("0. Add new Item")
+            .add("1. Show all items")
+            .add("2. Edit item")
+            .add("3. Delete item")
+            .add("4. Find item by Id")
+            .add("5. Find items by name")
+            .add("6. Exit Program")
+            .add("Select:");
+    private String menu = this.menuConstructor.toString();
 
     @Before
     public void loadOutput() {
@@ -63,78 +75,41 @@ public class StartUITest {
     public void whenUserWantToShowAllItemsThenItShows() {
         Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, this.tracker).init();
-        assertThat(new String(out.toByteArray()), is("Menu.\r\n"
-                + "0. Add new Item\r\n"
-                + "1. Show all items\r\n"
-                + "2. Edit item\r\n"
-                + "3. Delete item\r\n"
-                + "4. Find item by Id\r\n"
-                + "5. Find items by name\r\n"
-                + "6. Exit Program\r\n"
-                + "Select:\r\n"
-                + "------------ Showing the all item of the Tracker --------------\r\n"
-                + "Item with id: " + this.item1.getId() + ", name: " + this.item1.getName() + ", description: desc\r\n"
-                + "Item with id: " + this.item2.getId() + ", name: " + this.item2.getName() + ", description: desc\r\n"
-                + "Item with id: " + this.item3.getId() + ", name: " + this.item3.getName() + ", description: desc\r\n"
-                + "------------------------------ THE END ------------------------\r\n"
-                + "Menu.\r\n"
-                + "0. Add new Item\r\n"
-                + "1. Show all items\r\n"
-                + "2. Edit item\r\n"
-                + "3. Delete item\r\n"
-                + "4. Find item by Id\r\n"
-                + "5. Find items by name\r\n"
-                + "6. Exit Program\r\nSelect:\r\n"));
+        assertThat(new String(out.toByteArray()), is(this.menu
+                + "------------ Showing the all item of the Tracker --------------"
+                + System.lineSeparator()
+                + "Item with id: " + this.item1.getId() + ", name: " + this.item1.getName() + ", description: desc"
+                + System.lineSeparator()
+                + "Item with id: " + this.item2.getId() + ", name: " + this.item2.getName() + ", description: desc"
+                + System.lineSeparator()
+                + "Item with id: " + this.item3.getId() + ", name: " + this.item3.getName() + ", description: desc"
+                + System.lineSeparator()
+                + "------------------------------ THE END ------------------------"
+                + System.lineSeparator()
+                + this.menu));
     }
 
     @Test
     public void whenUserSearchByIdItemsThenItShows() {
         Input input = new StubInput(new String[]{"4", this.item1.getId(), "6"});
         new StartUI(input, this.tracker).init();
-        assertThat(new String(out.toByteArray()), is("Menu.\r\n"
-                + "0. Add new Item\r\n"
-                + "1. Show all items\r\n"
-                + "2. Edit item\r\n"
-                + "3. Delete item\r\n"
-                + "4. Find item by Id\r\n"
-                + "5. Find items by name\r\n"
-                + "6. Exit Program\r\n"
-                + "Select:\r\n"
-                + "------------ Search an item by id--------------\r\n"
-                + "Item with id: " + this.item1.getId() + ", name: " + this.item1.getName() + ", description: desc\r\n"
-                + "Menu.\r\n"
-                + "0. Add new Item\r\n"
-                + "1. Show all items\r\n"
-                + "2. Edit item\r\n"
-                + "3. Delete item\r\n"
-                + "4. Find item by Id\r\n"
-                + "5. Find items by name\r\n"
-                + "6. Exit Program\r\nSelect:\r\n"));
+        assertThat(new String(out.toByteArray()), is(this.menu
+                + "------------ Search an item by id--------------"
+                + System.lineSeparator()
+                + "Item with id: " + this.item1.getId() + ", name: " + this.item1.getName() + ", description: desc"
+                + System.lineSeparator()
+                + this.menu));
     }
 
     @Test
     public void whenUserSearchByNameItemsThenItShows() {
         Input input = new StubInput(new String[]{"5", this.item2.getName(), "6"});
         new StartUI(input, this.tracker).init();
-        assertThat(new String(out.toByteArray()), is("Menu.\r\n"
-                + "0. Add new Item\r\n"
-                + "1. Show all items\r\n"
-                + "2. Edit item\r\n"
-                + "3. Delete item\r\n"
-                + "4. Find item by Id\r\n"
-                + "5. Find items by name\r\n"
-                + "6. Exit Program\r\n"
-                + "Select:\r\n"
-                + "------------ Search an item by name --------------\r\n"
-                + "Item with id: " + this.item2.getId() + ", name: " + this.item2.getName() + ", description: desc\r\n"
-                + "Menu.\r\n"
-                + "0. Add new Item\r\n"
-                + "1. Show all items\r\n"
-                + "2. Edit item\r\n"
-                + "3. Delete item\r\n"
-                + "4. Find item by Id\r\n"
-                + "5. Find items by name\r\n"
-                + "6. Exit Program\r\nSelect:\r\n"));
+        assertThat(new String(out.toByteArray()), is(this.menu
+                + "------------ Search an item by name --------------"
+                + System.lineSeparator()
+                + "Item with id: " + this.item2.getId() + ", name: " + this.item2.getName() + ", description: desc"
+                + System.lineSeparator()
+                + this.menu));
     }
 }
-
