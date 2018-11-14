@@ -34,8 +34,7 @@ public class StartUITest {
             .add("3. Delete item")
             .add("4. Find item by Id")
             .add("5. Find items by name")
-            .add("6. Exit Program")
-            .add("Select:");
+            .add("6. Exit Program");
     private String menu = this.menuConstructor.toString();
 
     @Before
@@ -76,15 +75,11 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, this.tracker).init();
         assertThat(new String(out.toByteArray()), is(this.menu
-                + "------------ Showing the all item of the Tracker --------------"
-                + System.lineSeparator()
                 + "Item with id: " + this.item1.getId() + ", name: " + this.item1.getName() + ", description: desc"
                 + System.lineSeparator()
                 + "Item with id: " + this.item2.getId() + ", name: " + this.item2.getName() + ", description: desc"
                 + System.lineSeparator()
                 + "Item with id: " + this.item3.getId() + ", name: " + this.item3.getName() + ", description: desc"
-                + System.lineSeparator()
-                + "------------------------------ THE END ------------------------"
                 + System.lineSeparator()
                 + this.menu));
     }
@@ -94,8 +89,6 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"4", this.item1.getId(), "6"});
         new StartUI(input, this.tracker).init();
         assertThat(new String(out.toByteArray()), is(this.menu
-                + "------------ Search an item by id--------------"
-                + System.lineSeparator()
                 + "Item with id: " + this.item1.getId() + ", name: " + this.item1.getName() + ", description: desc"
                 + System.lineSeparator()
                 + this.menu));
@@ -106,8 +99,6 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"5", this.item2.getName(), "6"});
         new StartUI(input, this.tracker).init();
         assertThat(new String(out.toByteArray()), is(this.menu
-                + "------------ Search an item by name --------------"
-                + System.lineSeparator()
                 + "Item with id: " + this.item2.getId() + ", name: " + this.item2.getName() + ", description: desc"
                 + System.lineSeparator()
                 + this.menu));
