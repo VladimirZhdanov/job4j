@@ -6,14 +6,38 @@ public class MenuTracker {
      * @param хранит ссылку на объект .
      */
     private Input input;
+
     /**
      * @param хранит ссылку на объект .
      */
     private Tracker tracker;
+
     /**
      * @param хранит ссылку на массив типа UserAction.
      */
     private UserAction[] actions = new UserAction[7];
+
+    /**
+     * Метод для получения массива меню.
+     *
+     * @return длину массива
+     */
+    public int getActionLenght() {
+        return this.actions.length;
+    }
+
+    /**
+     * Method to get limit.
+     *
+     * @return array of limit.
+     */
+    public int[] getRangeOfMenu() {
+        int[] result = new int[7];
+        for (int i = 1; i < getActionLenght() - 1; i++) {
+            result[i] = this.actions[i].key();
+        }
+        return result;
+    }
 
     /**
      * <p>Constructor.</p>

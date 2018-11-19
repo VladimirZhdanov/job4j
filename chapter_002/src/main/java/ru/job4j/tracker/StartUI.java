@@ -10,7 +10,8 @@ import java.util.*;
  * @since 0.1
  */
 public class StartUI {
-
+    //private int[] range =
+    //private int[] range = new int[] {0, 1, 2, 3, 4, 5, 6};
     /**
      * Get data from a client.
      */
@@ -34,15 +35,15 @@ public class StartUI {
     /**
      * <p>The main loop of the app.</p>
      */
-
     private boolean working = true;
 
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions(this);
+        int[] range = menu.getRangeOfMenu();
         do {
             menu.show();
-            menu.select(Integer.valueOf(this.input.ask("select:")));
+            menu.select(this.input.ask("select:", range));
         } while (this.working);
     }
     public void stop() {
@@ -54,6 +55,6 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }
