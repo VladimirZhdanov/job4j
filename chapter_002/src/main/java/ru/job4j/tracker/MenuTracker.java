@@ -33,7 +33,7 @@ public class MenuTracker {
      */
     public int[] getRangeOfMenu() {
         int[] result = new int[7];
-        for (int i = 1; i < getActionLenght() - 1; i++) {
+        for (int i = 1; i < getActionLenght(); i++) {
             result[i] = this.actions[i].key();
         }
         return result;
