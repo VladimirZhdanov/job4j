@@ -22,7 +22,7 @@ public class MenuTracker {
      *
      * @return длину массива
      */
-    public int getActionLenght() {
+    public int getActionLength() {
         return this.actions.length;
     }
 
@@ -32,8 +32,8 @@ public class MenuTracker {
      * @return array of limit.
      */
     public int[] getRangeOfMenu() {
-        int[] result = new int[7];
-        for (int i = 1; i < getActionLenght(); i++) {
+        int[] result = new int[this.getActionLength()];
+        for (int i = 1; i < this.getActionLength(); i++) {
             result[i] = this.actions[i].key();
         }
         return result;

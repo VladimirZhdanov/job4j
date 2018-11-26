@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 /**
- * TODO add comments.
+ * //TODO add comments.
  *
  * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
  * @version $Id$
@@ -23,24 +23,40 @@ public class ValidateInputTest {
 
     @Before
     public void loadMem() {
+        System.out.println("execute before method");
         System.setOut(new PrintStream(this.mem));
+
     }
 
     @After
     public void loadSys() {
         System.setOut(this.out);
+        System.out.println("execute after method");
     }
 
     @Test
-    public void whenInvalidInput() {
+    public void whenInvalidInput1() {
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"invalid", "1"})
+                new StubInput(new String[] {"invalid", "6"})
         );
         input.ask("Enter", new int[] {1});
         assertThat(
                 this.mem.toString(),
                 is(
                         String.format("Please enter validate data again.%n")
+                )
+        );
+    }
+    @Test
+    public void whenInvalidInput2() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[] {"99", "1"})
+        );
+        input.ask("Enter", new int[] {1});
+        assertThat(
+                this.mem.toString(),
+                is(
+                        String.format("Please select key from menu.%n")
                 )
         );
     }
