@@ -27,7 +27,7 @@ public class StubInput implements Input {
      * у нас есть объект в котором содержатся заранее продуманные ответы.
      * При последовательном вызове метода ask нам надо возвращать соответствующие данные.
      * Как если бы мы симулировали поведение пользователя.
-     * Для этого при каждом вызове метода ask мы увеличиваем счетчик и 
+     * Для этого при каждом вызове метода ask мы увеличиваем счетчик и
      * при следующем вызове он вернет нам новое значение.
      */
     @Override
@@ -37,7 +37,7 @@ public class StubInput implements Input {
 
     @Override
     public int ask(String question, int[] range) {
-        int key = Integer.valueOf(this.ask(question));
+        int key = Integer.valueOf(this.value[this.position++]);
         boolean exist = false;
         for (int value : range) {
             if (value == key) {
@@ -52,4 +52,4 @@ public class StubInput implements Input {
         }
     }
 }
- 
+

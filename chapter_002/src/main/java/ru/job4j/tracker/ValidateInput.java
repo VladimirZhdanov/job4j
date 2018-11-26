@@ -26,7 +26,7 @@ public class ValidateInput implements Input {
                 System.out.println("Please enter validate data again.");
             }
         } while (invalid);
-        return  value;
+        return value;
     }
 }
 
