@@ -50,10 +50,9 @@ public class MenuTracker {
         this.tracker = tracker;
     }
 
-    private class AddItem implements UserAction {
-        @Override
-        public int key() {
-            return 0;
+    private class AddItem extends BaseAction {
+        public AddItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -64,18 +63,13 @@ public class MenuTracker {
             tracker.add(item);
             System.out.println(item);
         }
-
-        @Override
-        public String info() {
-            return "0. Add new Item";
-        }
     }
 
-    private class ShowItems implements UserAction {
-        @Override
-        public int key() {
-            return 1;
+    private class ShowItems extends BaseAction {
+        public ShowItems(int key, String name) {
+            super(key, name);
         }
+
 
         @Override
         public void execute(Input input, Tracker tracker) {
@@ -84,17 +78,11 @@ public class MenuTracker {
                 System.out.println(itemIn);
             }
         }
-
-        @Override
-        public String info() {
-            return "1. Show all items";
-        }
     }
 
-    private static class EditItem implements UserAction {
-        @Override
-        public int key() {
-            return 2;
+    private static class EditItem extends BaseAction {
+        public EditItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -112,17 +100,11 @@ public class MenuTracker {
                 System.out.println(next);
             }
         }
-
-        @Override
-        public String info() {
-            return "2. Edit item";
-        }
     }
 
-    private static class DeleteItem implements UserAction {
-        @Override
-        public int key() {
-            return 3;
+    private static class DeleteItem extends BaseAction {
+        public DeleteItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -134,17 +116,11 @@ public class MenuTracker {
                 System.out.println("------------ The item with id : " + id + " is deleted " + "-----------");
             }
         }
-
-        @Override
-        public String info() {
-            return "3. Delete item";
-        }
     }
 
-    private class FindItemById implements UserAction {
-        @Override
-        public int key() {
-            return 4;
+    private class FindItemById extends BaseAction {
+        public FindItemById(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -157,17 +133,11 @@ public class MenuTracker {
                 System.out.println(item);
             }
         }
-
-        @Override
-        public String info() {
-            return "4. Find item by Id";
-        }
     }
 
-    private class FindItemsByName implements UserAction {
-        @Override
-        public int key() {
-            return 5;
+    private class FindItemsByName extends BaseAction {
+        public FindItemsByName(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -178,17 +148,13 @@ public class MenuTracker {
                 System.out.println(itemIn);
             }
         }
-
-        @Override
-        public String info() {
-            return "5. Find items by name";
-        }
     }
 
-    private class ExitProgram implements UserAction {
+    private class ExitProgram extends BaseAction {
         private final StartUI ui;
 
-        private ExitProgram(StartUI ui) {
+        public ExitProgram(StartUI ui, int key, String name) {
+            super(key, name);
             this.ui = ui;
         }
 
@@ -204,7 +170,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "6. Exit Program";
+            return String.format("%s. %s", this.key(), "Exit Program");
         }
     }
 
@@ -213,13 +179,13 @@ public class MenuTracker {
      * @param ui
      */
     public void fillActions(StartUI ui) {
-        this.actions[0] = this.new AddItem();
-        this.actions[1] = this.new ShowItems();
-        this.actions[2] = new MenuTracker.EditItem();
-        this.actions[3] = new MenuTracker.DeleteItem();
-        this.actions[4] = this.new FindItemById();
-        this.actions[5] = this.new FindItemsByName();
-        this.actions[6] = this.new ExitProgram(ui);
+        this.actions[0] = this.new AddItem(0, "Add new Item");
+        this.actions[1] = this.new ShowItems(1, "Show all items");
+        this.actions[2] = new MenuTracker.EditItem(2, "Edit item");
+        this.actions[3] = new MenuTracker.DeleteItem(3, "Delete item");
+        this.actions[4] = this.new FindItemById(4, "Find item by Id");
+        this.actions[5] = this.new FindItemsByName(5, "Find items by name");
+        this.actions[6] = this.new ExitProgram(ui, 6, "Exit Program");
     }
 
     /**
