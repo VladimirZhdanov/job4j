@@ -12,16 +12,15 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class TrackerTest {
+    private Tracker tracker = new Tracker();
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
-        Tracker tracker = new Tracker();
         Item item = new Item("test1", "testDescription", 123L);
         tracker.add(item);
         assertThat(tracker.findAll()[0], is(item));
     }
     @Test
     public void whenReplaceNameThenReturnNewName() {
-        Tracker tracker = new Tracker();
         Item previous = new Item("test1", "testDescription", 123L);
         tracker.add(previous);
         Item next = new Item("test2", "testDescription2", 1234L);
@@ -31,7 +30,6 @@ public class TrackerTest {
     }
     @Test
     public void whenDeleteElementThenReturnMoreShotArray() {
-        Tracker tracker = new Tracker();
         Item item1 = new Item("test1", "testDescription", 123L);
         Item item2 = new Item("test2", "testDescription", 123L);
         tracker.add(item1);
@@ -43,14 +41,12 @@ public class TrackerTest {
     }
     @Test
     public void whenInputNameThenReturnItemByName() {
-        Tracker tracker = new Tracker();
         Item item1 = new Item("test1", "testDescription", 123L);
         Item item2 = new Item("test2", "testDescription", 123L);
         Item item3 = new Item("test1", "testDescription", 123L);
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        //tracker.findByName("test1");
         Item[] expecte = new Item[2];
         expecte[0] = item1;
         expecte[1] = item3;

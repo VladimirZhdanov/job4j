@@ -9,6 +9,7 @@ import java.util.*;
  * @since 0.1
  */
 public class Tracker {
+    //INSTANCE;
     private final Item[] items = new Item[100];
     private int position = 0;
     private static final Random RN = new Random();
