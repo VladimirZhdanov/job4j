@@ -54,7 +54,7 @@ public class Logic {
         }
         for (int i = 0; i < this.figures.length; i++) {
             if (figures[i].position().equals(dest)) {
-                throw new ImpossibleMoveException("Impossible movement!");
+                throw new ImpossibleMoveException("Impossible movement!!Q");
             }
         }
     }
