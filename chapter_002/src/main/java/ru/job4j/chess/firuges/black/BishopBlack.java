@@ -26,13 +26,13 @@ public class BishopBlack implements Figure {
     public Cell[] way(Cell source, Cell dest) {
         int lengthOfWay = Math.abs(source.y - dest.y);
         Cell[] steps = new Cell[lengthOfWay];
-        int deltaX = (dest.x - source.x) <0 ? -1 : 1;
-        int deltaY = (dest.y - source.y) <0 ? -1 : 1;
+        int deltaX = (dest.x - source.x) < 0 ? -1 : 1;
+        int deltaY = (dest.y - source.y) < 0 ? -1 : 1;
         if (this.impossibilityToMove(source, dest)) {
-            throw new ImpossibleMoveException ("Impossible movement!");
+            throw new ImpossibleMoveException("Impossible movement!");
         }
             for (int i = 0; i < steps.length; i++) {
-                steps[i] = Cell.values()[(source.x + deltaX * (i +1)) * 8 + (source.y + deltaY * (i +1))];
+                steps[i] = Cell.values()[(source.x + deltaX * (i + 1)) * 8 + (source.y + deltaY * (i + 1))];
             }
         return steps;
     }
