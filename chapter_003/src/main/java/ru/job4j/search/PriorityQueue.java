@@ -12,7 +12,15 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        if (tasks.size() == 0) {
+        int index = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (!tasks.isEmpty() && tasks.get(i).getPriority() > task.getPriority()) {
+                break;
+            }
+            index++;
+        }
+        tasks.add(index, task);
+        /*if (tasks.size() == 0) {
             tasks.add(task);
         } else if (tasks.getLast().getPriority() < task.getPriority()) {
             tasks.addLast(task);
@@ -27,7 +35,7 @@ public class PriorityQueue {
                     break;
                 }
             }
-        }
+        }*/
         //TODO добавить вставку в связанный список.
     }
 
