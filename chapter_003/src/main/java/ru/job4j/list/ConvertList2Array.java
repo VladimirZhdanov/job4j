@@ -10,7 +10,16 @@ public class ConvertList2Array {
         }
         int cells = sizeOfList / rows;
         int[][] array = new int[rows][cells];
-        int indexOfNewList = 0;
+        int index = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cells; j++) {
+                if (index >= list.size()) {
+                    break;
+                }
+                array[i][j] = list.get(index++);
+            }
+        }
+       /* int indexOfNewList = 0;
         for (int i[] : array) {
             int index = 0;
             for (int j : i) {
@@ -18,7 +27,7 @@ public class ConvertList2Array {
                     i[index++] = list.get(indexOfNewList++);
                 }
             }
-        }
+        }*/
         return array;
     }
 }
