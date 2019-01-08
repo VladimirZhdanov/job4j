@@ -4,11 +4,12 @@ import java.util.List;
 
 public class ConvertList2Array {
     public int[][] toArray(List<Integer> list, int rows) {
-        int sizeOfList = list.size();
+       /* int sizeOfList = list.size();
         while (sizeOfList % rows != 0) {
             sizeOfList++;
         }
-        int cells = sizeOfList / rows;
+        int cells = sizeOfList / rows;*/
+        int cells = (int) Math.ceil((double) list.size() / rows);
         int[][] array = new int[rows][cells];
         int index = 0;
         for (int i = 0; i < rows; i++) {
