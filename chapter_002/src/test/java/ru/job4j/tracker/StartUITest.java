@@ -13,6 +13,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
@@ -51,28 +53,28 @@ public class StartUITest {
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
+        Input input = new StubInput(Arrays.asList("0", "test name", "desc", "6"));
         new StartUI(input, this.tracker).init();
-        assertThat(this.tracker.findAll()[3].getName(), is("test name"));
+        assertThat(this.tracker.findAll().get(3).getName(), is("test name"));
     }
 
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
-        Input input = new StubInput(new String[]{"2", this.item1.getId(), "test replace", "заменили заявку", "6"});
+        Input input = new StubInput(Arrays.asList("2", this.item1.getId(), "test replace", "заменили заявку", "6"));
         new StartUI(input, this.tracker).init();
         assertThat(this.tracker.findById(this.item1.getId()).getName(), is("test replace"));
     }
 
     @Test
     public void whenUserDeleteItemThenTrackerHasNothing() {
-        Input input = new StubInput(new String[]{"3", this.item1.getId(), "3", this.item2.getId(), "3", this.item3.getId(), "6"});
+        Input input = new StubInput(Arrays.asList("3", this.item1.getId(), "3", this.item2.getId(), "3", this.item3.getId(), "6"));
         new StartUI(input, this.tracker).init();
-        assertThat(this.tracker.findAll().length, is(0));
+        assertThat(this.tracker.findAll().size(), is(0));
     }
 
     @Test
     public void whenUserWantToShowAllItemsThenItShows() {
-        Input input = new StubInput(new String[]{"1", "6"});
+        Input input = new StubInput(Arrays.asList("1", "6"));
         new StartUI(input, this.tracker).init();
         assertThat(new String(out.toByteArray()), is(this.menu
                 + "Item with id: " + this.item1.getId() + ", name: " + this.item1.getName() + ", description: desc"
@@ -86,7 +88,7 @@ public class StartUITest {
 
     @Test
     public void whenUserSearchByIdItemsThenItShows() {
-        Input input = new StubInput(new String[]{"4", this.item1.getId(), "6"});
+        Input input = new StubInput(Arrays.asList("4", this.item1.getId(), "6"));
         new StartUI(input, this.tracker).init();
         assertThat(new String(out.toByteArray()), is(this.menu
                 + "Item with id: " + this.item1.getId() + ", name: " + this.item1.getName() + ", description: desc"
@@ -96,7 +98,7 @@ public class StartUITest {
 
     @Test
     public void whenUserSearchByNameItemsThenItShows() {
-        Input input = new StubInput(new String[]{"5", this.item2.getName(), "6"});
+        Input input = new StubInput(Arrays.asList("5", this.item2.getName(), "6"));
         new StartUI(input, this.tracker).init();
         assertThat(new String(out.toByteArray()), is(this.menu
                 + "Item with id: " + this.item2.getId() + ", name: " + this.item2.getName() + ", description: desc"

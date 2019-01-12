@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -37,9 +38,9 @@ public class ValidateInputTest {
     @Test
     public void whenInvalidInput1() {
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"invalid", "1"})
+                new StubInput(Arrays.asList("invalid", "1"))
         );
-        input.ask("Enter", new int[] {1});
+        input.ask("Enter", Arrays.asList(1));
         assertThat(
                 this.mem.toString(),
                 is(
@@ -50,9 +51,9 @@ public class ValidateInputTest {
     @Test
     public void whenInvalidInput2() {
         ValidateInput input = new ValidateInput(
-                new StubInput(new String[] {"9", "1"})
+                new StubInput(Arrays.asList("9", "1"))
         );
-        input.ask("Enter", new int[] {1});
+        input.ask("Enter", Arrays.asList(1));
         assertThat(
                 this.mem.toString(),
                 is(

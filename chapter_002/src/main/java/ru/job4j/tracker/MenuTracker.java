@@ -1,6 +1,9 @@
 package ru.job4j.tracker;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuTracker {
     /**
      * @param хранит ссылку на объект .
@@ -15,26 +18,26 @@ public class MenuTracker {
     /**
      * @param хранит ссылку на массив типа UserAction.
      */
-    private UserAction[] actions = new UserAction[7];
+    private List<UserAction> actions = new ArrayList<>();
 
     /**
      * Метод для получения массива меню.
      *
      * @return длину массива
      */
-    public int getActionLength() {
-        return this.actions.length;
-    }
+    /*public int getActionLength() {
+        return this.actions.size();
+    }*/
 
     /**
      * Method to get limit.
      *
      * @return array of limit.
      */
-    public int[] getRangeOfMenu() {
-        int[] result = new int[this.getActionLength()];
-        for (int i = 1; i < this.getActionLength(); i++) {
-            result[i] = this.actions[i].key();
+    public List<Integer> getRangeOfMenu() {
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < this.actions.size(); i++) {
+            result.add(this.actions.get(i).key());
         }
         return result;
     }
@@ -73,7 +76,7 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            Item[] itemOut = tracker.findAll();
+            List<Item> itemOut = tracker.findAll();
             for (Item itemIn : itemOut) {
                 System.out.println(itemIn);
             }
@@ -143,7 +146,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("Enter name of the item :");
-            Item[] itemOut = tracker.findByName(name);
+            List<Item> itemOut = tracker.findByName(name);
             for (Item itemIn : itemOut) {
                 System.out.println(itemIn);
             }
@@ -179,13 +182,13 @@ public class MenuTracker {
      * @param ui
      */
     public void fillActions(StartUI ui) {
-        this.actions[0] = this.new AddItem(0, "Add new Item");
-        this.actions[1] = this.new ShowItems(1, "Show all items");
-        this.actions[2] = new MenuTracker.EditItem(2, "Edit item");
-        this.actions[3] = new MenuTracker.DeleteItem(3, "Delete item");
-        this.actions[4] = this.new FindItemById(4, "Find item by Id");
-        this.actions[5] = this.new FindItemsByName(5, "Find items by name");
-        this.actions[6] = this.new ExitProgram(ui, 6, "Exit Program");
+        this.actions.add(this.new AddItem(0, "Add new Item"));
+        this.actions.add(this.new ShowItems(1, "Show all items"));
+        this.actions.add(new MenuTracker.EditItem(2, "Edit item"));
+        this.actions.add(new MenuTracker.DeleteItem(3, "Delete item"));
+        this.actions.add(this.new FindItemById(4, "Find item by Id"));
+        this.actions.add(this.new FindItemsByName(5, "Find items by name"));
+        this.actions.add(this.new ExitProgram(ui, 6, "Exit Program"));
     }
 
     /**
@@ -194,7 +197,7 @@ public class MenuTracker {
      * @param key ключ операции
      */
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     /**

@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Item class.
  *
@@ -12,7 +14,7 @@ public class Item {
     private String name;
     private String description;
     private long created;
-    private String[] comments;
+    private List<String> comments;
 
     public Item() {
     }

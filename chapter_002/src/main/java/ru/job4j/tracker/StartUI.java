@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * StartUI class.
@@ -10,8 +10,6 @@ import java.util.*;
  * @since 0.1
  */
 public class StartUI {
-    //private int[] range =
-    //private int[] range = new int[] {0, 1, 2, 3, 4, 5, 6};
     /**
      * Get data from a client.
      */
@@ -40,7 +38,7 @@ public class StartUI {
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions(this);
-        int[] range = menu.getRangeOfMenu();
+        List<Integer> range = menu.getRangeOfMenu();
         do {
             menu.show();
             menu.select(this.input.ask("select:", range));

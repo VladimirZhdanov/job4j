@@ -8,16 +8,21 @@ package ru.job4j.tracker;
  * @since 0.1
  */
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class TrackerTest {
     private Tracker tracker = new Tracker();
     @Test
+
     public void whenAddNewItemThenTrackerHasSameItem() {
         Item item = new Item("test1", "testDescription", 123L);
         tracker.add(item);
-        assertThat(tracker.findAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
     @Test
     public void whenReplaceNameThenReturnNewName() {
@@ -35,9 +40,9 @@ public class TrackerTest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.delete(item1.getId());
-        Item[] expecte = new Item[1];
-        expecte[0] = item2;
-        assertThat(tracker.findAll(), is(expecte));
+        List<Item> expect = new ArrayList<>();
+        expect.add(item2);
+        assertThat(tracker.findAll(), is(expect));
     }
     @Test
     public void whenInputNameThenReturnItemByName() {
@@ -47,10 +52,10 @@ public class TrackerTest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        Item[] expecte = new Item[2];
-        expecte[0] = item1;
-        expecte[1] = item3;
-        assertThat(tracker.findByName("test1"), is(expecte));
+        List<Item> expect = new ArrayList<>();
+        expect.add(item1);
+        expect.add(item3);
+        assertThat(tracker.findByName("test1"), is(expect));
     }
 }
 

@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 public class StubInput implements Input {
     /**
      * Это поле содержит последовательность ответов пользователя.
@@ -10,7 +12,7 @@ public class StubInput implements Input {
      * desc - описание заявки
      * y - выйти из трекера.
      */
-    private final String[] value;
+    private final List<String> value;
 
     /**
      * Поле считает количество вызовом метода ask.
@@ -18,7 +20,7 @@ public class StubInput implements Input {
      */
     private int position = 0;
 
-    public StubInput(final String[] value) {
+    public StubInput(final List<String> value) {
         this.value = value;
     }
 
@@ -32,12 +34,12 @@ public class StubInput implements Input {
      */
     @Override
     public String ask(String question) {
-        return this.value[this.position++];
+        return this.value.get(this.position++);
     }
 
     @Override
-    public int ask(String question, int[] range) {
-        int key = Integer.valueOf(this.value[this.position++]);
+    public int ask(String question, List<Integer> range) {
+        int key = Integer.valueOf(this.value.get(this.position++));
         boolean exist = false;
         for (int value : range) {
             if (value == key) {
