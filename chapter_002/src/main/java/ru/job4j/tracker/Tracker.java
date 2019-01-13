@@ -42,7 +42,7 @@ public class Tracker {
         for (int index = 0; index != this.position; index++) {
             if (items.get(index).getId().equals(id)) {
                 item.setId(id);
-                items.add(index, item);
+                items.set(index, item);
                 check = true;
                 break;
             }
@@ -73,11 +73,7 @@ public class Tracker {
      * @return array of elements of the Tracker.
      */
     public List<Item> findAll() {
-        List<Item> result = new ArrayList<>();
-        for (int index = 0; index != this.position; index++) {
-            result.add(index, this.items.get(index));
-        }
-        return result;
+        return this.items;
     }
     /**
      * <p>Find by name a item of the Tracker.</p>

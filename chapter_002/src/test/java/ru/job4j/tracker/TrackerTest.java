@@ -58,4 +58,3 @@ public class TrackerTest {
         assertThat(tracker.findByName("test1"), is(expect));
     }
 }
-
