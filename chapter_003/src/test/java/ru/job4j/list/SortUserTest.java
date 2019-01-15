@@ -19,25 +19,47 @@ import static org.junit.Assert.*;
 public class SortUserTest {
     private final SortUser sortedTreeSet = new SortUser();
     private final List<User> userList = new ArrayList<>();
-    private final Set<User> expecte = new TreeSet<>();
+    private final List<User> expect = new ArrayList<>();
 
     @Before
     public void putNewUsers() {
         userList.add(new User("Diablo", 666));
         userList.add(new User("John", 27));
-        userList.add(new User("Petr", 37));
-        userList.add(new User("Mike", 32));
+        userList.add(new User("Nil", 37));
+        userList.add(new User("I", 32));
+        userList.add(new User("I", 3));
     }
 
     @Test
-    public void when() {
-        expecte.add(new User("John", 27));
-        expecte.add(new User("Mike", 32));
-        expecte.add(new User("Petr", 37));
-        expecte.add(new User("Diablo", 666));
+    public void whenSortByAgeThenSortByAge() {
+        expect.add(new User("I", 3));
+        expect.add(new User("John", 27));
+        expect.add(new User("I", 32));
+        expect.add(new User("Nil", 37));
+        expect.add(new User("Diablo", 666));
         Set<User> result = sortedTreeSet.sort(userList);
-
-        assertThat(result.toString(), is(expecte.toString()));
+        assertThat(result.toString(), is(expect.toString()));
     }
 
+    @Test
+    public void whenInArrayListToSortNameForLength() {
+        expect.add(new User("I", 32));
+        expect.add(new User("I", 3));
+        expect.add(new User("Nil", 37));
+        expect.add(new User("John", 27));
+        expect.add(new User("Diablo", 666));
+        List<User> result = sortedTreeSet.sortNameLength(userList);
+        assertThat(result.toString(), is(expect.toString()));
+    }
+
+    @Test
+    public void sortByAllFields() {
+        expect.add(new User("Diablo", 666));
+        expect.add(new User("I", 3));
+        expect.add(new User("I", 32));
+        expect.add(new User("John", 27));
+        expect.add(new User("Nil", 37));
+        List<User> result = sortedTreeSet.sortByAllFields(userList);
+        assertThat(result.toString(), is(expect.toString()));
+    }
 }
