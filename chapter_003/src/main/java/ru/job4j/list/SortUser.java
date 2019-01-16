@@ -20,7 +20,9 @@ public class SortUser {
                 new Comparator<User>() {
                     @Override
                     public int compare(User o1, User o2) {
-                        return (o1.getName().length() < o2.getName().length()) ? -1 : ((o1.getName().length() == o2.getName().length()) ? 0 : 1);
+                        int nameLength1 = o1.getName().length();
+                        int nameLength2 = o2.getName().length();
+                        return nameLength1 < nameLength2 ? -1 : (nameLength1 == nameLength2 ? 0 : 1);
                     }
                 }
         );
