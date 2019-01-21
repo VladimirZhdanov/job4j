@@ -2,8 +2,8 @@ package ru.job4j.bank;
 
 public class Account {
 
-    double values; //Доступ должен быть private
-    String reqs;   //Доступ должен быть private, переименовать в requisites
+    private double values;
+    private String reqs;
 
     public Account(double values, String requisites) {
         this.values = values;
@@ -14,12 +14,11 @@ public class Account {
         return this.values;
     }
 
-
-    public String getReqs () {  //убрать пробел перед скобкой, название ...Requisites
+    public String getReqs() {
         return this.reqs;
     }
 
-    boolean transfer(Account destination, double amount) { //доступ
+    public boolean transfer(Account destination, double amount) {
         boolean success = false;
         if (amount > 0 && amount < this.values && destination != null) {
             success = true;
@@ -28,13 +27,13 @@ public class Account {
         }
         return success;
     }
- // @Override
+
+    @Override
     public String toString() {
-        String otvet; // return "Account{" + "values=" + values + ", reqs='" + reqs + "\\" + "}";
-        otvet = "Account{" + "values=" + values + ", reqs='" + reqs + "\\" + "}";
-        return otvet;
+        return "Account{" + "values=" + values + ", reqs='" + reqs + "\\" + "}";
     }
-    // @Override  , сделать 1 return
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -47,7 +46,8 @@ public class Account {
 
         return this.reqs.equals(account.reqs);
     }
-    // @Override
+
+    @Override
     public int hashCode() {
         return this.reqs.hashCode();
     }

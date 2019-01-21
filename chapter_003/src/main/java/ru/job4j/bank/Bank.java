@@ -1,14 +1,8 @@
 package ru.job4j.bank;
 
-
-
-
-//import ru.job4j.list.User;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
-
 
 public class Bank {
 
@@ -22,7 +16,7 @@ public class Bank {
         this.treemap.remove(user);
     }
 
-    public void add(User user, Account account) { //Непонятное название
+    public void addAccount(User user, Account account) {
         this.treemap.get(user).add(account);
     }
 
@@ -46,7 +40,8 @@ public class Bank {
                 && getActualAccount(user1, account1).transfer(
                 getActualAccount(user2, account2), amount);
     }
-    //@Override
+
+    @Override
     public String toString() {
         return "Bank{" + "accounts=" + treemap + "}";
     }
