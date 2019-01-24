@@ -2,21 +2,24 @@ package ru.job4j.bank;
 
 public class User {
     private String name;
-    private String password;
+    private String passport;
     private int age;
 
     public User(String name, String password, int age) {
         this.name = name;
-        this.password = password;
+        this.passport = password;
         this.age = age;
+    }
+
+    public User() {
     }
 
     public String getName() {
         return name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassport() {
+        return passport;
     }
 
     public int getAge() {

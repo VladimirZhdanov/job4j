@@ -21,11 +21,6 @@ public class Bank {
         this.treemap.get(user).add(account);
     }
 
-    private Account getActualAccount(User user, Account account) {
-        ArrayList<Account> list = this.treemap.get(user);
-        return list.get(list.indexOf(account));
-    }
-
     public void deleteAccount(User user, Account account) {
         this.treemap.get(user).remove(account);
     }
@@ -34,12 +29,40 @@ public class Bank {
         return this.treemap.get(user);
     }
 
-    public boolean transfer(User user1, Account account1,
-                                 User user2, Account account2, double amount) {
+    public User getUserByPassport(String passport) {
+        User result = new User();
+        for (User user : this.treemap.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                result = user;
+            }
+        }
+        return result;
+    }
+
+    public List<Account> getUserAccounts(String passport) {
+        return this.treemap.get(getUserByPassport(passport));
+    }
+
+    public Account getAccountByRequisiteFromUserPassport(String passport, String requisite) {
+        List<Account> accounts = getUserAccounts(passport);
+        Account result = null;
+        for (Account acc : accounts) {
+            if (acc.getRequisites().equals(requisite)) {
+                result = acc;
+            }
+        }
+        return result;
+    }
+
+    public boolean transferMoney (String srcPassport, String srcRequisite,
+                                  String destPassport, String destRequisite, double amount) {
+        User user1 = getUserByPassport(srcPassport);
+        User user2 = getUserByPassport(destPassport);
+        Account account1 = getAccountByRequisiteFromUserPassport(srcPassport, srcRequisite);
+        Account account2 = getAccountByRequisiteFromUserPassport(destPassport, destRequisite);
         return this.treemap.get(user1).contains(account1)
                 && this.treemap.get(user2).contains(account2)
-                && getActualAccount(user1, account1).transfer(
-                getActualAccount(user2, account2), amount);
+                && account1.transfer(account2, amount);
     }
 
     @Override
