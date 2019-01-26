@@ -1,6 +1,14 @@
 package ru.job4j.bank;
 
-public class Account {
+/**
+ * Account
+ *
+ * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+
+public class Account implements Comparable<Account> {
 
     private double values;
     private String requisites;
@@ -30,7 +38,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" + "values=" + values + ", requisites='" + requisites + "\\" + "}";
+        return "Account{" + "values=" + values + ", requisites=" + requisites + "}";
     }
 
     @Override
@@ -50,5 +58,10 @@ public class Account {
     @Override
     public int hashCode() {
         return this.requisites.hashCode();
+    }
+
+    @Override
+    public int compareTo(Account o) {
+        return this.requisites.compareTo(o.requisites);
     }
 }

@@ -4,33 +4,58 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-public class Bank {
+/**
+ * Bank
+ *
+ * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
 
+public class Bank {
     private TreeMap<User, ArrayList<Account>> treemap = new TreeMap<>();
+
+    public TreeMap<User, ArrayList<Account>> getTreemap() {
+        return treemap;
+    }
 
     public void addUser(User user) {
         this.treemap.putIfAbsent(user, new ArrayList<>());
-        //this.treemap.put(user, new ArrayList<>());
     }
 
     public void deleteUser(User user) {
         this.treemap.remove(user);
     }
 
-    public void addAccount(User user, Account account) {
-        this.treemap.get(user).add(account);
+    public void addAccount(User user, Account account) throws BankException {
+        try {
+            for (Account value : this.treemap.get(user)) {
+                if (value.getRequisites() == account.getRequisites()) {
+                    throw new BankException("The requisites already is used.");
+                }
+            }
+            this.treemap.get(user).add(account);
+        } catch (NullPointerException e) {
+            System.out.println("User is not found: " + e);
+        } catch (BankException e) {
+            System.out.println(e);
+        }
     }
 
-    public void deleteAccount(User user, Account account) {
-        this.treemap.get(user).remove(account);
-    }
-
-    public List<Account> getAccounts(User user) {
-        return this.treemap.get(user);
+    public void deleteAccountByRequisites(User user, String requisites) {
+        try {
+            for (Account value : this.treemap.get(user)) {
+                if (value.getRequisites() == requisites) {
+                    this.treemap.get(user).remove(value);
+                }
+            }
+        } catch (NullPointerException e) {
+            System.out.println("User is not found: " + e);
+        }
     }
 
     public User getUserByPassport(String passport) {
-        User result = new User();
+        User result = null;
         for (User user : this.treemap.keySet()) {
             if (user.getPassport().equals(passport)) {
                 result = user;
@@ -54,7 +79,7 @@ public class Bank {
         return result;
     }
 
-    public boolean transferMoney (String srcPassport, String srcRequisite,
+    public boolean transferMoney(String srcPassport, String srcRequisite,
                                   String destPassport, String destRequisite, double amount) {
         User user1 = getUserByPassport(srcPassport);
         User user2 = getUserByPassport(destPassport);
