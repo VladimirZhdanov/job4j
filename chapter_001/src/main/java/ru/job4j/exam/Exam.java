@@ -13,23 +13,20 @@ public class Exam {
         int[] result = new int[array1.length + array2.length];
         int i = 0;
         int j = 0;
-        for (int k=0; k<result.length; k++) {
-            if (i > array1.length-1) {
+        for (int k = 0; k < result.length; k++) {
+            if (i > array1.length - 1) {
                 int a = array2[j];
                 result[k] = a;
                 j++;
-            }
-            else if (j > array2.length-1) {
+            } else if (j > array2.length - 1) {
                 int a = array1[i];
                 result[k] = a;
                 i++;
-            }
-            else if (array1[i] < array2[j]) {
+            } else if (array1[i] < array2[j]) {
                 int a = array1[i];
                 result[k] = a;
                 i++;
-            }
-            else {
+            } else {
                 int b = array2[j];
                 result[k] = b;
                 j++;

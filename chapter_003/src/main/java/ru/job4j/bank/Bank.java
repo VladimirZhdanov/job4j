@@ -19,39 +19,45 @@ public class Bank {
         return treemap;
     }
 
-    public void addUser(User user) {
-        this.treemap.putIfAbsent(user, new ArrayList<>());
+    public boolean addUser(User user) {
+        boolean res = false;
+        if (this.treemap.putIfAbsent(user, new ArrayList<>()) == null) {
+            res = true;
+        }
+        return res;
     }
 
-    public void deleteUser(User user) {
-        this.treemap.remove(user);
+    public boolean deleteUser(User user) {
+        boolean res = false;
+        if (this.treemap.remove(user) != null) {
+            res = true;
+        }
+        return res;
     }
 
-    public void addAccount(User user, Account account) throws BankException {
-        try {
-            for (Account value : this.treemap.get(user)) {
-                if (value.getRequisites() == account.getRequisites()) {
-                    throw new BankException("The requisites already is used.");
+    public boolean addAccount(User user, Account account) {
+        boolean res = false;
+        final ArrayList<Account> accounts = this.treemap.get(user);
+        if (accounts != null && !accounts.contains(account)) {
+            accounts.add(account);
+            res = true;
+        }
+        return res;
+    }
+
+    public boolean deleteAccountByRequisites(User user, String requisites) {
+        boolean res = false;
+        final ArrayList<Account> accounts = treemap.get(user);
+        if (accounts != null) {
+            for (int i = 0; i < accounts.size(); i++) {
+                if (accounts.get(i).getRequisites().equals(requisites)) {
+                    accounts.remove(i);
+                    res = true;
+                    break;
                 }
             }
-            this.treemap.get(user).add(account);
-        } catch (NullPointerException e) {
-            System.out.println("User is not found: " + e);
-        } catch (BankException e) {
-            System.out.println(e);
         }
-    }
-
-    public void deleteAccountByRequisites(User user, String requisites) {
-        try {
-            for (Account value : this.treemap.get(user)) {
-                if (value.getRequisites() == requisites) {
-                    this.treemap.get(user).remove(value);
-                }
-            }
-        } catch (NullPointerException e) {
-            System.out.println("User is not found: " + e);
-        }
+        return res;
     }
 
     public User getUserByPassport(String passport) {
