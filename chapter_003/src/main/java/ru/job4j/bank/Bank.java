@@ -71,29 +71,29 @@ public class Bank {
     }
 
     public List<Account> getUserAccounts(String passport) {
-        return this.treemap.get(getUserByPassport(passport));
+        List<Account> accounts = this.treemap.get(getUserByPassport(passport));
+        return accounts;
     }
 
     public Account getAccountByRequisiteFromUserPassport(String passport, String requisite) {
         List<Account> accounts = getUserAccounts(passport);
-        Account result = null;
-        for (Account acc : accounts) {
-            if (acc.getRequisites().equals(requisite)) {
-                result = acc;
-            }
+        int i = accounts.indexOf(new Account(666, requisite));
+        if (i < 0) {
+            return null;
         }
-        return result;
+        return accounts.get(i);
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                   String destPassport, String destRequisite, double amount) {
-        User user1 = getUserByPassport(srcPassport);
-        User user2 = getUserByPassport(destPassport);
+        boolean result = false;
         Account account1 = getAccountByRequisiteFromUserPassport(srcPassport, srcRequisite);
         Account account2 = getAccountByRequisiteFromUserPassport(destPassport, destRequisite);
-        return this.treemap.get(user1).contains(account1)
-                && this.treemap.get(user2).contains(account2)
-                && account1.transfer(account2, amount);
+        if (account1 != null && account2 != null && amount > 0) {
+            account1.transfer(account2, amount);
+            result = true;
+        }
+        return result;
     }
 
     @Override
