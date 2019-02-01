@@ -18,6 +18,11 @@ public class Account implements Comparable<Account> {
         this.requisites = requisites;
     }
 
+    public Account(String requisites) {
+        this.values = 0;
+        this.requisites = requisites;
+    }
+
     public double getValues() {
         return this.values;
     }

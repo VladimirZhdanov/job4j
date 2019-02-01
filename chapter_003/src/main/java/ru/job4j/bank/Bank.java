@@ -77,7 +77,7 @@ public class Bank {
 
     public Account getAccountByRequisiteFromUserPassport(String passport, String requisite) {
         List<Account> accounts = getUserAccounts(passport);
-        int i = accounts.indexOf(new Account(666, requisite));
+        int i = accounts.indexOf(new Account(requisite));
         if (i < 0) {
             return null;
         }
