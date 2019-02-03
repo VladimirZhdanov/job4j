@@ -3,12 +3,19 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class MenuTracker {
+
     /**
      * @param хранит ссылку на объект .
      */
     private Input input;
+
+    /**
+     * @param хранит ссылку на объект .
+     */
+    private final Consumer<String> output;
 
     /**
      * @param хранит ссылку на объект .
@@ -19,15 +26,6 @@ public class MenuTracker {
      * @param хранит ссылку на массив типа UserAction.
      */
     private List<UserAction> actions = new ArrayList<>();
-
-    /**
-     * Метод для получения массива меню.
-     *
-     * @return длину массива
-     */
-    /*public int getActionLength() {
-        return this.actions.size();
-    }*/
 
     /**
      * Method to get limit.
@@ -44,13 +42,14 @@ public class MenuTracker {
 
     /**
      * <p>Constructor.</p>
-     *
      * @param input   instance of the Input.
      * @param tracker instance of the Tracker.
+     * @param output  instance of the Output.
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
 
     private class AddItem extends BaseAction {
@@ -78,12 +77,13 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             List<Item> itemOut = tracker.findAll();
             for (Item itemIn : itemOut) {
-                System.out.println(itemIn);
+                output.accept(String.format("Item with id: %s, name: %s, description: %s",
+                        itemIn.getId(), itemIn.getName(), itemIn.getDescription()));
             }
         }
     }
 
-    private static class EditItem extends BaseAction {
+    private class EditItem extends BaseAction {
         public EditItem(int key, String name) {
             super(key, name);
         }
@@ -93,7 +93,7 @@ public class MenuTracker {
             String id = input.ask("Enter id of the item :");
             Item previous = tracker.findById(id);
             if (previous == null) {
-                System.out.println("The id is not exist!");
+                output.accept("The id is not exist!");
             } else {
                 System.out.println(previous);
                 String name = input.ask("Enter a new name of the item :");
@@ -105,7 +105,7 @@ public class MenuTracker {
         }
     }
 
-    private static class DeleteItem extends BaseAction {
+    private class DeleteItem extends BaseAction {
         public DeleteItem(int key, String name) {
             super(key, name);
         }
@@ -114,9 +114,9 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Enter id of the item :");
             if (!tracker.delete(id)) {
-                System.out.println("The id is not exist!");
+                output.accept("The id is not exist!");
             } else {
-                System.out.println("------------ The item with id : " + id + " is deleted " + "-----------");
+                output.accept(String.format("------------ The item with id : %s is deleted -----------", id));
             }
         }
     }
@@ -131,9 +131,9 @@ public class MenuTracker {
             String id = input.ask("Enter id of the item :");
             Item item = tracker.findById(id);
             if (item == null) {
-                System.out.println("The id is not exist!");
+                output.accept("The id is not exist!");
             } else {
-                System.out.println(item);
+                output.accept(String.format("%s", item));
             }
         }
     }
@@ -148,7 +148,8 @@ public class MenuTracker {
             String name = input.ask("Enter name of the item :");
             List<Item> itemOut = tracker.findByName(name);
             for (Item itemIn : itemOut) {
-                System.out.println(itemIn);
+                output.accept(String.format("Item with id: %s, name: %s, description: %s",
+                        itemIn.getId(), itemIn.getName(), itemIn.getDescription()));
             }
         }
     }
@@ -184,8 +185,8 @@ public class MenuTracker {
     public void fillActions(StartUI ui) {
         this.actions.add(this.new AddItem(0, "Add new Item"));
         this.actions.add(this.new ShowItems(1, "Show all items"));
-        this.actions.add(new MenuTracker.EditItem(2, "Edit item"));
-        this.actions.add(new MenuTracker.DeleteItem(3, "Delete item"));
+        this.actions.add(this.new EditItem(2, "Edit item"));
+        this.actions.add(this.new DeleteItem(3, "Delete item"));
         this.actions.add(this.new FindItemById(4, "Find item by Id"));
         this.actions.add(this.new FindItemsByName(5, "Find items by name"));
         this.actions.add(this.new ExitProgram(ui, 6, "Exit Program"));
