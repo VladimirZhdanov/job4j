@@ -11,7 +11,6 @@ import java.util.function.Function;
  * @version $Id$
  * @since 0.1
  */
-
 public class Labmda {
     public List<Double> diapason(int start, int end, Function<Double, Double> func) {
         List<Double> result = new ArrayList<>();
