@@ -40,7 +40,6 @@ public class ProfileTest {
         });
         Profile profile = new Profile();
         List<Address> result = profile.collect(listOfProfiles);
-        profile.sortByCity(result);
         assertThat(result, is(expected));
     }
 }

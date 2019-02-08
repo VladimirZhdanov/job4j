@@ -28,18 +28,11 @@ public class Profile {
     }
 
     List<Address> collect(List<Profile> profiles) {
-        return profiles.stream().distinct().map(profile -> profile.address).collect(Collectors.toList());
-    }
-
-    public List<Address> sortByCity(List<Address> list) {
-        list.sort(
-                new Comparator<Address>() {
-                    @Override
-                    public int compare(Address o1, Address o2) {
-                        return o1.getCity().compareTo(o2.getCity());
-                    }
-                });
-        return list;
+        return profiles.stream()
+                .distinct()
+                .map(profile -> profile.address)
+                .sorted(new CityComparator())
+                .collect(Collectors.toList());
     }
     @Override
     public boolean equals(Object o) {
