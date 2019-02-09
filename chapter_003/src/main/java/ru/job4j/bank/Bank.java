@@ -1,8 +1,12 @@
 package ru.job4j.bank;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Bank
@@ -61,6 +65,8 @@ public class Bank {
     }
 
     public User getUserByPassport(String passport) {
+        /*User result = null;
+        result = Stream.of(treemap).*/
         User result = null;
         for (User user : this.treemap.keySet()) {
             if (user.getPassport().equals(passport)) {
@@ -73,6 +79,7 @@ public class Bank {
     public List<Account> getUserAccounts(String passport) {
         List<Account> accounts = this.treemap.get(getUserByPassport(passport));
         return accounts;
+       /*return Stream.of(treemap).filter(filter).collect(Collectors.toList());*/
     }
 
     public Account getAccountByRequisiteFromUserPassport(String passport, String requisite) {

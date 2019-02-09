@@ -72,9 +72,7 @@ public class SchoolTest {
         students.add(new Student(10, "Vlad"));
         students.add(new Student(1, "Mike"));
         School school = new School();
-        Map<String, Student> result = school.convertListToMap(students,
-                Student::getSurname,
-                student -> student);
+        Map<String, Student> result = school.convertListToMap(students);
         Map<String, Student> expected = new HashMap<String, Student>();
         expected.put("Vlad", new Student(10, "Vlad"));
         expected.put("Bob", new Student(100, "Bob"));

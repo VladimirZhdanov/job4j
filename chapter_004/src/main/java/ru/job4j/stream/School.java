@@ -18,7 +18,8 @@ public class School {
         return students.stream().filter(predict).collect(Collectors.toList());
     }
 
-    Map<String, Student> convertListToMap(List<Student> students, Function<Student, String> key, Function<Student, Student> value) {
-        return students.stream().distinct().collect(Collectors.toMap(key, value));
+    Map<String, Student> convertListToMap(List<Student> students) {
+        return students.stream().distinct().collect(Collectors.toMap(Student::getSurname,
+                student -> student));
     }
 }
