@@ -29,9 +29,9 @@ public class Profile {
 
     List<Address> collect(List<Profile> profiles) {
         return profiles.stream()
-                .distinct()
                 .map(profile -> profile.address)
                 .sorted(new CityComparator())
+                .distinct()
                 .collect(Collectors.toList());
     }
     @Override

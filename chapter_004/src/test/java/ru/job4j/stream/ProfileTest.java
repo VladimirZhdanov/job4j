@@ -17,8 +17,6 @@ import static org.junit.Assert.*;
  */
 
 public class ProfileTest {
-
-
     @Test
     public void collect() {
         List<Profile> listOfProfiles = new ArrayList<>();
