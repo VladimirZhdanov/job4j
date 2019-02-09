@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * @since 0.1
  */
 public class Convert {
-    public List<Integer> convert(Integer[][] matrix, Function<Integer[], Stream<Integer>> list) {
-        return Stream.of(matrix).flatMap(list).collect(Collectors.toList());
+    public List<Integer> convert(Integer[][] matrix) {
+        return Stream.of(matrix).flatMap(Arrays::stream).collect(Collectors.toList());
     }
 }

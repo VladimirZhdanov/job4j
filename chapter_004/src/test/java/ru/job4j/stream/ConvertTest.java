@@ -22,7 +22,7 @@ public class ConvertTest {
 
         Integer[][] matrix = {{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}};
         Convert convert = new Convert();
-        List<Integer> result = convert.convert(matrix, Arrays::stream);
+        List<Integer> result = convert.convert(matrix);
         List<Integer> expected = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         assertThat(result, is(expected));
     }
