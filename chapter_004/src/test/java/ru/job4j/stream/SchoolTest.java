@@ -79,4 +79,21 @@ public class SchoolTest {
         expected.put("Mike", new Student(1, "Mike"));
         assertThat(result, is(expected));
     }
+
+    @Test
+    public void levelOf() {
+        List<Student> students = List.of(
+                new Student(10, "Vlad"),
+                new Student(100, "Bob"),
+                new Student(10, "Vlad"),
+                new Student(1, "Mike")
+        );
+        School school = new School();
+        List<Student> expected = List.of(
+                new Student(100, "Bob"),
+                new Student(10, "Vlad")
+        );
+        List<Student> result = school.levelOf(students, 10);
+        assertThat(result, is(expected));
+    }
 }
