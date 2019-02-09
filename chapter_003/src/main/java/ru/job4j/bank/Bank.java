@@ -53,33 +53,20 @@ public class Bank {
         boolean res = false;
         final ArrayList<Account> accounts = treemap.get(user);
         if (accounts != null) {
-            for (int i = 0; i < accounts.size(); i++) {
-                if (accounts.get(i).getRequisites().equals(requisites)) {
-                    accounts.remove(i);
-                    res = true;
-                    break;
-                }
-            }
+            accounts.removeIf(account -> account.getRequisites().equals(requisites));
+            res = true;
         }
         return res;
     }
 
     public User getUserByPassport(String passport) {
-        /*User result = null;
-        result = Stream.of(treemap).*/
-        User result = null;
-        for (User user : this.treemap.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                result = user;
-            }
-        }
-        return result;
+       return treemap.keySet().stream().filter(user -> user.getPassport().equals(passport)).
+               findAny().orElse(null);
     }
 
     public List<Account> getUserAccounts(String passport) {
         List<Account> accounts = this.treemap.get(getUserByPassport(passport));
         return accounts;
-       /*return Stream.of(treemap).filter(filter).collect(Collectors.toList());*/
     }
 
     public Account getAccountByRequisiteFromUserPassport(String passport, String requisite) {
