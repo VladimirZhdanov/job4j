@@ -17,48 +17,51 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class SortUserTest {
-    private final SortUser sortedTreeSet = new SortUser();
-    private final List<User> userList = new ArrayList<>();
-    private final List<User> expect = new ArrayList<>();
-
-    @Before
-    public void putNewUsers() {
-        userList.add(new User("Diablo", 666));
-        userList.add(new User("John", 27));
-        userList.add(new User("Nil", 37));
-        userList.add(new User("I", 32));
-        userList.add(new User("I", 3));
-    }
+    private SortUser sortedTreeSet = new SortUser();
+    private List<User> userList = List.of(
+            new User("Diablo", 666),
+            new User("John", 27),
+            new User("I", 32),
+            new User("Nil", 37),
+            new User("I", 3)
+    );
+    private List<User> expect = new ArrayList<>();
 
     @Test
     public void whenSortByAgeThenSortByAge() {
-        expect.add(new User("I", 3));
-        expect.add(new User("John", 27));
-        expect.add(new User("I", 32));
-        expect.add(new User("Nil", 37));
-        expect.add(new User("Diablo", 666));
+        List<User> expect = List.of(
+                new User("I", 3),
+                new User("John", 27),
+                new User("I", 32),
+                new User("Nil", 37),
+                new User("Diablo", 666)
+        );
         Set<User> result = sortedTreeSet.sort(userList);
         assertThat(result.toString(), is(expect.toString()));
     }
 
     @Test
     public void whenInArrayListToSortNameForLength() {
-        expect.add(new User("I", 32));
-        expect.add(new User("I", 3));
-        expect.add(new User("Nil", 37));
-        expect.add(new User("John", 27));
-        expect.add(new User("Diablo", 666));
+        List<User> expect = List.of(
+                new User("I", 32),
+                new User("I", 3),
+                new User("Nil", 37),
+                new User("John", 27),
+                new User("Diablo", 666)
+        );
         List<User> result = sortedTreeSet.sortNameLength(userList);
         assertThat(result.toString(), is(expect.toString()));
     }
 
     @Test
     public void sortByAllFields() {
-        expect.add(new User("Diablo", 666));
-        expect.add(new User("I", 3));
-        expect.add(new User("I", 32));
-        expect.add(new User("John", 27));
-        expect.add(new User("Nil", 37));
+        List<User> expect = List.of(
+                new User("Diablo", 666),
+                new User("I", 3),
+                new User("I", 32),
+                new User("John", 27),
+                new User("Nil", 37)
+        );
         List<User> result = sortedTreeSet.sortByAllFields(userList);
         assertThat(result.toString(), is(expect.toString()));
     }
