@@ -60,8 +60,8 @@ public class Bank {
     }
 
     public User getUserByPassport(String passport) {
-       return treemap.keySet().stream().filter(user -> user.getPassport().equals(passport)).
-               findAny().orElse(null);
+        return treemap.keySet().stream().filter(user -> user.getPassport().equals(passport)).
+                findAny().orElse(null);
     }
 
     public List<Account> getUserAccounts(String passport) {
@@ -71,15 +71,17 @@ public class Bank {
 
     public Account getAccountByRequisiteFromUserPassport(String passport, String requisite) {
         List<Account> accounts = getUserAccounts(passport);
-        int i = accounts.indexOf(new Account(requisite));
-        if (i < 0) {
-            return null;
+        Account result = null;
+        if (accounts != null) {
+            result = accounts.stream().filter(account -> account.getRequisites()
+                    .equals(requisite))
+                    .findAny().orElse(null);
         }
-        return accounts.get(i);
+        return result;
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
-                                  String destPassport, String destRequisite, double amount) {
+                                 String destPassport, String destRequisite, double amount) {
         boolean result = false;
         Account account1 = getAccountByRequisiteFromUserPassport(srcPassport, srcRequisite);
         Account account2 = getAccountByRequisiteFromUserPassport(destPassport, destRequisite);
