@@ -9,6 +9,13 @@ import java.util.NoSuchElementException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+/**
+ * JaggedArrayIteratorTest
+ *
+ * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
 public class JaggedArrayIteratorTest {
 
     private Iterator<Integer> it;

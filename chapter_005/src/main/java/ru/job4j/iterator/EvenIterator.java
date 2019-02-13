@@ -4,24 +4,29 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * JaggedArrayIterator
+ * EvenIterator
  *
  * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class JaggedArrayIterator<T> implements Iterator<T> {
-    private T[][] values;
+public class EvenIterator<T> implements Iterator<T> {
+    private T[] values;
     private int i = 0;
-    private int j = 0;
 
-    public JaggedArrayIterator(T[][] values) {
+    public EvenIterator(T[] values) {
         this.values = values;
     }
 
     @Override
     public boolean hasNext() {
-        return i < values.length && j < values[i].length;
+        boolean result = false;
+        for (int j = i; j < values.length; j++) {
+            if ((Integer) values[j] % 2 == 0) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     @Override
@@ -29,11 +34,12 @@ public class JaggedArrayIterator<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         } else {
-            T result = values[i][j++];
-            if (j > values[i].length - 1) {
+            T result;
+            while ((Integer) values[i] % 2 != 0) {
                 i++;
-                j = 0;
             }
+            result = values[i];
+            i++;
             return result;
         }
     }
