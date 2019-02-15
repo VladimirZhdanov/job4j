@@ -10,12 +10,12 @@ import java.util.NoSuchElementException;
  * @version $Id$
  * @since 0.1
  */
-public class JaggedArrayIterator<T> implements Iterator<T> {
-    private T[][] values;
+public class JaggedArrayIterator<Integer> implements Iterator<Integer> {
+    private Integer[][] values;
     private int i = 0;
     private int j = 0;
 
-    public JaggedArrayIterator(T[][] values) {
+    public JaggedArrayIterator(Integer[][] values) {
         this.values = values;
     }
 
@@ -25,11 +25,11 @@ public class JaggedArrayIterator<T> implements Iterator<T> {
     }
 
     @Override
-    public T next() {
+    public Integer next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         } else {
-            T result = values[i][j++];
+            Integer result = values[i][j++];
             if (j > values[i].length - 1) {
                 i++;
                 j = 0;

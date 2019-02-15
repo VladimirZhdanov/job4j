@@ -10,11 +10,11 @@ import java.util.NoSuchElementException;
  * @version $Id$
  * @since 0.1
  */
-public class EvenIterator<T> implements Iterator<T> {
-    private T[] values;
+public class EvenIterator<Integer> implements Iterator<Integer> {
+    private Integer[] values;
     private int i = 0;
 
-    public EvenIterator(T[] values) {
+    public EvenIterator(Integer[] values) {
         this.values = values;
     }
 
@@ -22,22 +22,21 @@ public class EvenIterator<T> implements Iterator<T> {
     public boolean hasNext() {
         boolean result = false;
         for (int j = i; j < values.length; j++) {
-            if ((Integer) values[j] % 2 == 0) {
+            if ((int) values[j] % 2 == 0) {
                 result = true;
+                i = j;
+                break;
             }
         }
         return result;
     }
 
     @Override
-    public T next() {
+    public Integer next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         } else {
-            T result;
-            while ((Integer) values[i] % 2 != 0) {
-                i++;
-            }
+            Integer result;
             result = values[i];
             i++;
             return result;
