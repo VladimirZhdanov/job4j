@@ -1,7 +1,9 @@
 package ru.job4j.iterator;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 /**
  * EvenIterator
@@ -12,23 +14,20 @@ import java.util.NoSuchElementException;
  */
 public class EvenIterator<Integer> implements Iterator<Integer> {
     private Integer[] values;
-    private int i = 0;
+    //private Stream<Integer> stream;
+    private int i;
+    private boolean nextIsKnown = false;
 
     public EvenIterator(Integer[] values) {
-        this.values = values;
+        this.values = (Integer[]) Arrays.stream(values)
+                .filter(value -> (int) value % 2 == 0)
+                .toArray();
+        //this.stream = Arrays.stream(values);
     }
 
     @Override
     public boolean hasNext() {
-        boolean result = false;
-        for (int j = i; j < values.length; j++) {
-            if ((int) values[j] % 2 == 0) {
-                result = true;
-                i = j;
-                break;
-            }
-        }
-        return result;
+        return i < values.length;
     }
 
     @Override
@@ -36,8 +35,7 @@ public class EvenIterator<Integer> implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         } else {
-            Integer result;
-            result = values[i];
+            Integer result = values[i];
             i++;
             return result;
         }
