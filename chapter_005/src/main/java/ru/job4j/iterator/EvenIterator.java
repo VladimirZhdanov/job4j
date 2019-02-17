@@ -12,22 +12,24 @@ import java.util.stream.Stream;
  * @version $Id$
  * @since 0.1
  */
-public class EvenIterator<Integer> implements Iterator<Integer> {
+public class EvenIterator implements Iterator {
     private Integer[] values;
-    //private Stream<Integer> stream;
-    private int i;
+    private Integer i = 0;
     private boolean nextIsKnown = false;
 
     public EvenIterator(Integer[] values) {
-        this.values = (Integer[]) Arrays.stream(values)
-                .filter(value -> (int) value % 2 == 0)
-                .toArray();
-        //this.stream = Arrays.stream(values);
+        this.values = values;
     }
 
     @Override
     public boolean hasNext() {
-        return i < values.length;
+        return Arrays.stream(values).anyMatch(value -> {
+            if (value % 2 == 0 && value > i) {
+                i = value;
+                nextIsKnown = true;
+            }
+            return nextIsKnown;
+        });
     }
 
     @Override
@@ -35,9 +37,8 @@ public class EvenIterator<Integer> implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         } else {
-            Integer result = values[i];
-            i++;
-            return result;
+            nextIsKnown = false;
+            return i;
         }
     }
 }
