@@ -12,7 +12,7 @@ import java.util.*;
 public class SimpleArray<T> implements Iterable<T> {
     private T[] objects;
     private int currentSize;
-    private int i = 0;
+    private int modCount;
 
     public SimpleArray(T[] objects) {
         this.objects = objects;
@@ -21,40 +21,47 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public boolean add(T model) {
         boolean result = false;
-        for (int i = 0; i < currentSize; i++) {
-            if (null == objects[i]) {
-                objects[i] = model;
-                result = true;
-                break;
-            }
+        if (currentSize < objects.length) {
+            objects[currentSize] = model;
+            result = true;
+            currentSize++;
+            modCount++;
         }
         return result;
     }
 
     public void set(int index, T model) {
-        Objects.checkIndex(index, currentSize);
+        Objects.checkIndex(index, objects.length);
         if (currentSize > index) {
             this.objects[index] = model;
+            modCount++;
         }
     }
 
     public void remove(int index) {
-        Objects.checkIndex(index, currentSize);
-        final int newSize = currentSize - 1;
+        Objects.checkIndex(index, objects.length);
+        final int newSize = objects.length - 1;
         if (newSize > index) {
             System.arraycopy(objects, index + 1, objects, index, newSize - index);
         }
-        objects[currentSize - 1] = null;
+        objects[objects.length - 1] = null;
+        currentSize--;
+        modCount++;
     }
 
     public Object get(int index) {
-        Objects.checkIndex(index, currentSize);
+        Objects.checkIndex(index, objects.length);
         return objects[index];
     }
 
-    /*public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         SimpleArray<String> sa = new SimpleArray<String>(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"});
         sa.remove(9);
+        sa.remove(8);
+        sa.remove(0);
+        sa.add("yyy1");
+        sa.add("yyy2");
+        sa.add("yyy3");
         for (int i = 0; i < 10; i++) {
             System.out.println(sa);
         }
@@ -68,7 +75,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return currentIndex < currentSize && objects[currentIndex] != null;
+                return currentIndex < objects.length;
             }
 
             @Override
@@ -105,13 +112,12 @@ public class SimpleArray<T> implements Iterable<T> {
         }
         SimpleArray<?> that = (SimpleArray<?>) o;
         return currentSize == that.currentSize
-                && i == that.i
                 && Arrays.equals(objects, that.objects);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(currentSize, i);
+        int result = Objects.hash(currentSize);
         result = 31 * result + Arrays.hashCode(objects);
         return result;
     }
