@@ -69,8 +69,10 @@ public class SimpleArrayTest {
 
     @Test
     public void  whenSetThen() {
-        sa.set(0, "new");
-        SimpleArray expected = new SimpleArray<>(new String[] {"new", "2", "3", "4", "5"});
+        sa.remove(0);
+        sa.add("new");
+        sa.set(4, "newer");
+        SimpleArray expected = new SimpleArray<>(new String[] {"2", "3", "4", "5", "newer"});
         assertThat(sa, is(expected));
     }
 

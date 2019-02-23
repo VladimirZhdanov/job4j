@@ -12,11 +12,12 @@ import java.util.*;
 public class SimpleArray<T> implements Iterable<T> {
     private T[] objects;
     private int currentSize;
-    private int modCount;
+    private int checkingForSet;
 
     public SimpleArray(T[] objects) {
         this.objects = objects;
         this.currentSize = objects.length;
+        this.checkingForSet = objects.length;
     }
 
     public boolean add(T model) {
@@ -24,17 +25,20 @@ public class SimpleArray<T> implements Iterable<T> {
         if (currentSize < objects.length) {
             objects[currentSize] = model;
             result = true;
+            if (checkingForSet > currentSize) {
+                checkingForSet = currentSize;
+            }
             currentSize++;
-            modCount++;
+
         }
         return result;
     }
 
     public void set(int index, T model) {
         Objects.checkIndex(index, objects.length);
-        if (currentSize > index) {
+
+        if (currentSize > index && index >= checkingForSet) {
             this.objects[index] = model;
-            modCount++;
         }
     }
 
@@ -46,7 +50,6 @@ public class SimpleArray<T> implements Iterable<T> {
         }
         objects[objects.length - 1] = null;
         currentSize--;
-        modCount++;
     }
 
     public Object get(int index) {
@@ -54,14 +57,18 @@ public class SimpleArray<T> implements Iterable<T> {
         return objects[index];
     }
 
-  /*  public static void main(String[] args) {
+    public Object size() {
+        return objects.length;
+    }
+
+   /* public static void main(String[] args) {
         SimpleArray<String> sa = new SimpleArray<String>(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"});
         sa.remove(9);
-        sa.remove(8);
         sa.remove(0);
-        sa.add("yyy1");
-        sa.add("yyy2");
-        sa.add("yyy3");
+        sa.add("666");
+        sa.add("666");
+        sa.set(8, "777");
+        sa.set(9, "7777");
         for (int i = 0; i < 10; i++) {
             System.out.println(sa);
         }
@@ -97,9 +104,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
     @Override
     public String toString() {
-        return "SimpleArray{"
-                + "objects=" + Arrays.toString(objects)
-                + '}';
+        return "SimpleArray{" + "objects=" + Arrays.toString(objects) + '}';
     }
 
     @Override
@@ -111,14 +116,11 @@ public class SimpleArray<T> implements Iterable<T> {
             return false;
         }
         SimpleArray<?> that = (SimpleArray<?>) o;
-        return currentSize == that.currentSize
-                && Arrays.equals(objects, that.objects);
+        return Arrays.equals(objects, that.objects);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(currentSize);
-        result = 31 * result + Arrays.hashCode(objects);
-        return result;
+        return Arrays.hashCode(objects);
     }
 }
