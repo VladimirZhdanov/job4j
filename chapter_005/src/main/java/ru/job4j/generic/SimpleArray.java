@@ -39,6 +39,8 @@ public class SimpleArray<T> implements Iterable<T> {
 
         if (currentSize > index && index >= checkingForSet) {
             this.objects[index] = model;
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -61,13 +63,13 @@ public class SimpleArray<T> implements Iterable<T> {
         return objects.length;
     }
 
-   /* public static void main(String[] args) {
+/*    public static void main(String[] args) {
         SimpleArray<String> sa = new SimpleArray<String>(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"});
         sa.remove(9);
         sa.remove(0);
         sa.add("666");
         sa.add("666");
-        sa.set(8, "777");
+        sa.set(6, "777");
         sa.set(9, "7777");
         for (int i = 0; i < 10; i++) {
             System.out.println(sa);

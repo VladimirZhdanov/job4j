@@ -80,4 +80,9 @@ public class SimpleArrayTest {
     public void  whenGetThenShow() {
         assertThat(sa.get(0), is("1"));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenTryToChangeThenException() {
+        sa.set(4, "newer");
+    }
 }
