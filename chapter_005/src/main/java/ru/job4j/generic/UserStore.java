@@ -2,10 +2,10 @@ package ru.job4j.generic;
 
 import java.util.Iterator;
 
-public class UserStore<T extends Base> extends AbstractStore<T> {
+public class UserStore extends AbstractStore<User> {
 
 
-    public UserStore(SimpleArray<T> store) {
+    public UserStore(SimpleArray<User> store) {
         super(store);
     }
   /*  public static void main(String[] args) {

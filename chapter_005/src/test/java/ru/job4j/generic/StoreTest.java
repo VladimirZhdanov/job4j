@@ -3,9 +3,6 @@ package ru.job4j.generic;
         import org.junit.Before;
         import org.junit.Test;
 
-        import java.util.Iterator;
-        import java.util.NoSuchElementException;
-
         import static org.hamcrest.MatcherAssert.assertThat;
         import static org.hamcrest.Matchers.is;
 
@@ -45,19 +42,19 @@ public class StoreTest {
 
     @Test
     public void whenDeleteByIdThen() {
-        UserStore<User> us = new UserStore<>(users);
+        UserStore us = new UserStore(users);
         us.delete("001");
         SimpleArray<User> expectedUsers = new SimpleArray<>(new User[] {
                 new User("002"),
                 new User("003"),
                 null});
-        UserStore<User> expected = new UserStore<>(expectedUsers);
+        UserStore expected = new UserStore(expectedUsers);
         assertThat(us, is(expected));
     }
 
     @Test
     public void whenDeleteByIdThenAddAndEditByReplaceThat() {
-        UserStore<User> us = new UserStore<>(users);
+        UserStore us = new UserStore(users);
         us.delete("001");
         us.add(new User("new"));
         us.replace("new", new User("newer"));
@@ -65,13 +62,13 @@ public class StoreTest {
                 new User("002"),
                 new User("003"),
                 new User("newer")});
-        UserStore<User> expected = new UserStore<>(expectedUsers);
+        UserStore expected = new UserStore(expectedUsers);
         assertThat(us, is(expected));
     }
 
     @Test
     public void whenFindByIdThen() {
-        UserStore<User> us = new UserStore<>(users);
+        UserStore us = new UserStore(users);
         User expected = new User("001");
         assertThat(us.findById("001"), is(expected));
     }
