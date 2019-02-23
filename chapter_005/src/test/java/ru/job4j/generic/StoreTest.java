@@ -41,7 +41,7 @@ public class StoreTest {
     }
 
     @Test
-    public void whenDeleteByIdThen() {
+    public void whenDeleteByIdForUsersThen() {
         UserStore us = new UserStore(users);
         us.delete("001");
         SimpleArray<User> expectedUsers = new SimpleArray<>(new User[] {
@@ -49,6 +49,18 @@ public class StoreTest {
                 new User("003"),
                 null});
         UserStore expected = new UserStore(expectedUsers);
+        assertThat(us, is(expected));
+    }
+
+    @Test
+    public void whenDeleteByIdForRolesThen() {
+        RoleStore us = new RoleStore(roles);
+        us.delete("100");
+        SimpleArray<Role> expectedRoles = new SimpleArray<>(new Role[] {
+                new Role("200"),
+                new Role("300"),
+                null});
+        RoleStore expected = new RoleStore(expectedRoles);
         assertThat(us, is(expected));
     }
 
