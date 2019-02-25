@@ -23,7 +23,7 @@ public class MyArrayList<E> implements MyList<E> {
      *
      * @serial
      */
-    private int size;
+    private int size = 0;
 
     /**
      * Default initial capacity.
