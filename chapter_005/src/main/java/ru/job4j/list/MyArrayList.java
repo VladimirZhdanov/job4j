@@ -9,7 +9,7 @@ import java.util.*;
  * @version $Id$
  * @since 0.1
  */
-public class MyArrayList<E> implements MyList {
+public class MyArrayList<E> implements MyList<E> {
 
     /**
      * Inner container.
@@ -65,18 +65,18 @@ public class MyArrayList<E> implements MyList {
         }
     }
     @Override
-    public boolean add(Object o) {
+    public boolean add(E model) {
         extendArr();
-        container[i++] = o;
+        container[i++] = model;
         modCount++;
         this.size++;
         return true;
     }
 
     @Override
-    public Object get(int index) {
+    public E get(int index) {
         Objects.checkIndex(index, container.length);
-        return container[index];
+        return (E) container[index];
     }
 
     /**
