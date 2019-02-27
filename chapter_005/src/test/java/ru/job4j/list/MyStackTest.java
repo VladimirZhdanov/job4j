@@ -12,23 +12,22 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * MyLinkedListTest
+ * MyStackTest
  *
  * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class MyLinkedListTest {
-
-    private MyLinkedList<Integer> list;
+public class MyStackTest {
+    private MyStack<Integer> list;
     private Iterator<Integer> iterator;
 
     @Before
     public void beforeTest() {
-        list = new MyLinkedList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
+        list = new MyStack<>();
+        list.push(1);
+        list.push(2);
+        list.push(3);
         iterator = list.iterator();
     }
 
@@ -60,19 +59,14 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void whenAddThreeElementsThenUseGetOneResultTwo() {
-        assertThat(list.get(1), is(2));
-    }
-
-    @Test
     public void whenAddThreeElementsThenUseGetSizeResultThree() {
         assertThat(list.size(), is(3));
     }
 
     @Test
-    public void whenRemove() {
-        list.removeFirst();
-        assertThat(list.size(), is(2));
-        assertThat(list.get(0), is(2));
+    public void whenPoll() {
+        assertThat(list.poll(), is(3));
+        assertThat(list.poll(), is(2));
+        assertThat(list.poll(), is(1));
     }
 }

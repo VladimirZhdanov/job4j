@@ -18,6 +18,17 @@ public class MyLinkedList<E> implements MyList<E> {
     private Node<E> first;
     private int modCount;
 
+    public E removeFirst() {
+        if (size > 0) {
+            Node<E> result = first;
+            first = first.next;
+            size--;
+            return result.date;
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
     @Override
     public boolean add(E model) {
         Node<E> newLink = new Node<>(model);
