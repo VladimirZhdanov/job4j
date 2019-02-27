@@ -52,6 +52,7 @@ public class MyLinkedList<E> implements MyList<E> {
 
         private int expectedModCount = modCount;
         private int currentIndex = 0;
+        Node<E> buffer = first;
 
         @Override
         public boolean hasNext() {
@@ -65,7 +66,10 @@ public class MyLinkedList<E> implements MyList<E> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             } else {
-                return get(currentIndex++);
+                E result = buffer.date;
+                buffer = buffer.next;
+                currentIndex++;
+                return result;
             }
         }
 
