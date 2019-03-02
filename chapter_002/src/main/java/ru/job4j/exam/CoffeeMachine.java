@@ -1,29 +1,16 @@
 package ru.job4j.exam;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
+import java.util.Arrays;
 
 public class CoffeeMachine {
-    private int ten = 10;
-    private int countOfTen;
+    private static final int[] COINS = {1, 2, 5, 10};
+    private int[] bank;
+    private int[] buffer;
 
-    private int five = 5;
-    private int countOfFive;
-
-    private int two = 2;
-    private int countOfTwo;
-
-    private int one = 1;
-    private int countOfOne;
-    int[] buffer;
-
-    public CoffeeMachine(int countOfTen, int countOfFive, int countOfTwo, int countOfOne) {
-        this.countOfTen = countOfTen;
-        this.countOfFive = countOfFive;
-        this.countOfTwo = countOfTwo;
-        this.countOfOne = countOfOne;
+    public CoffeeMachine(int one, int two, int five, int ten) {
+        this.bank = new int[] {one, two, five, ten};
     }
-
 
     private boolean check(int value, int price) throws InsufficientFundsException {
         boolean result = false;
@@ -31,31 +18,20 @@ public class CoffeeMachine {
         if (change < 0) {
             throw new InsufficientFundsException("Insufficient funds, Could you please put additional money?");
         }
-        ArrayList<Integer> array = new ArrayList<>();
-        while (change >= ten && countOfTen > 0) {
-            change -= ten;
-            array.add(ten);
-            countOfTen--;
+        int[] array = new int[100];
+        int size = 0;
+        int i = COINS.length - 1;
+        while (change > 0 && i >= 0) {
+            while (change >= COINS[i] && bank[i] > 0) {
+                array[size++] = COINS[i];
+                change -= COINS[i];
+                bank[i]--;
+            }
+            i--;
         }
-        while (change >= five && countOfFive > 0) {
-            change -= five;
-            array.add(five);
-            countOfFive--;
-        }
-        while (change >= two && countOfTwo > 0) {
-            change -= two;
-            array.add(two);
-            countOfTwo--;
-        }
-        while (change > 0 && countOfOne > 0) {
-            change -= one;
-            array.add(one);
-            countOfOne--;
-        }
-
-        int sum = array.stream().mapToInt(x -> x).sum();
+        buffer = Arrays.copyOf(array, size);
+        int sum = Arrays.stream(buffer).sum();
         if (sum == value - price) {
-            buffer = array.stream().mapToInt(x -> x).toArray();
             result = true;
         }
         return result;
@@ -69,7 +45,7 @@ public class CoffeeMachine {
         }
     }
     /*public static void main(String[] args) {
-        CoffeeMachine cf = new CoffeeMachine(10, 1, 5, 2, 2, 5, 1, 3);
+        CoffeeMachine cf = new CoffeeMachine(29, 0, 0, 0);
         int[] sa = cf.changes(100, 70);
         for (int i = 0; i < sa.length; i++) {
             System.out.println(sa[i]);

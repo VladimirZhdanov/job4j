@@ -31,7 +31,7 @@ public class CoffeeMachineTest {
 
     @Test
     public void whenNotEnoughChangesThenReturnValue() {
-        CoffeeMachine cf = new CoffeeMachine(10, 0, 0, 0);
+        CoffeeMachine cf = new CoffeeMachine(0, 0, 0, 2);
         int[] result = cf.changes(100, 82);
         int[] expected = new int[] {100};
         assertThat(result, is(expected));
