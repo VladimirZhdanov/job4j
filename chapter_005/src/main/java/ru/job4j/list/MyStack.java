@@ -12,21 +12,25 @@ import java.util.Iterator;
 public class MyStack<E> implements Iterable<E> {
 
     private int size = 0;
-    private MyLinkedList<E> innerContaner;
+    private MyStack<E> firstStack;
+    private MyStack<E> secondStack;
 
     public MyStack() {
-        this.innerContaner = new MyLinkedList<>();
+        this.firstStack = new MyStack<>();
+        this.secondStack = new MyStack<>();
     }
 
+
     public E poll() {
-        E result = innerContaner.removeFirst();
+        E result = secondStack.poll();
         size--;
         return result;
 
     }
 
     public void push(E value) {
-        innerContaner.add(value);
+        firstStack.push(value);
+        secondStack.push(firstStack.poll());
         size++;
     }
 
@@ -36,6 +40,6 @@ public class MyStack<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return innerContaner.iterator();
+        return secondStack.iterator();
     }
 }
