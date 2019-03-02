@@ -12,20 +12,30 @@ import java.util.Iterator;
 public class MyQueue<E> implements Iterable<E> {
 
     private int size = 0;
-    private MyLinkedList<E> container;
+    private MyStack<E> firstStack;
+    private MyStack<E> secondStack;
 
     public MyQueue() {
-        this.container = new MyLinkedList<>();
+        this.firstStack = new MyStack<>();
+        this.secondStack = new MyStack<>();
     }
 
+
     public E poll() {
-        E result = container.removeLast();
+        if (secondStack.size() == 0) {
+            while (firstStack.size() != 0) {
+                secondStack.push(firstStack.poll());
+            }
+        }
+        E result = secondStack.poll();
         size--;
         return result;
+
     }
 
     public void push(E value) {
-        container.addFirst(value);
+        firstStack.push(value);
+        //secondStack.push(firstStack.poll());
         size++;
     }
 
@@ -35,6 +45,6 @@ public class MyQueue<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return container.iterator();
+        return secondStack.iterator();
     }
 }
