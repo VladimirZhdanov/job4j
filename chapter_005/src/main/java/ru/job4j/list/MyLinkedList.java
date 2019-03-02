@@ -16,6 +16,7 @@ public class MyLinkedList<E> implements MyList<E> {
 
     private int size = 0;
     private Node<E> first;
+    private Node<E> last;
     private int modCount;
 
     public E removeFirst() {
@@ -29,14 +30,47 @@ public class MyLinkedList<E> implements MyList<E> {
         }
     }
 
+    public E removeLast() {
+        if (size > 0) {
+            Node<E> result = last;
+            last = last.prev;
+            size--;
+            return result.date;
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
     @Override
     public boolean add(E model) {
-        Node<E> newLink = new Node<>(model);
-        newLink.next = this.first;
+        addFirst(model);
+        return true;
+    }
+
+    public void addFirst(E model) {
+        Node<E> f = first;
+        Node<E> newLink = new Node<>(null, model, f);
         this.first = newLink;
+        if (f == null) {
+            last = newLink;
+        } else {
+            f.prev = newLink;
+        }
         this.size++;
         this.modCount++;
-        return true;
+    }
+
+    public void addLast(E model) {
+        Node<E> l = last;
+        Node<E> newLink = new Node<>(l, model, null);
+        this.last = newLink;
+        if (l == null) {
+            first = newLink;
+        } else {
+            l.next = newLink;
+        }
+        this.size++;
+        this.modCount++;
     }
 
     @Override
@@ -103,9 +137,12 @@ public class MyLinkedList<E> implements MyList<E> {
 
         E date;
         Node<E> next;
+        Node<E> prev;
 
-        Node(E date) {
+        Node(Node<E> prev, E date, Node<E> next) {
             this.date = date;
+            this.next = next;
+            this.prev = prev;
         }
     }
 }

@@ -3,30 +3,29 @@ package ru.job4j.list;
 import java.util.Iterator;
 
 /**
- * MyStack
+ * MyQueue
  *
  * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class MyStack<E> implements Iterable<E> {
+public class MyQueue<E> implements Iterable<E> {
 
     private int size = 0;
-    private MyLinkedList<E> innerContaner;
+    private MyLinkedList<E> container;
 
-    public MyStack() {
-        this.innerContaner = new MyLinkedList<>();
+    public MyQueue() {
+        this.container = new MyLinkedList<>();
     }
 
     public E poll() {
-        E result = innerContaner.removeFirst();
+        E result = container.removeLast();
         size--;
         return result;
-
     }
 
     public void push(E value) {
-        innerContaner.add(value);
+        container.addFirst(value);
         size++;
     }
 
@@ -36,6 +35,6 @@ public class MyStack<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return innerContaner.iterator();
+        return container.iterator();
     }
 }
