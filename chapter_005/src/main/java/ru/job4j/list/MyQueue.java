@@ -35,7 +35,6 @@ public class MyQueue<E> implements Iterable<E> {
 
     public void push(E value) {
         firstStack.push(value);
-        //secondStack.push(firstStack.poll());
         size++;
     }
 

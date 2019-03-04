@@ -97,6 +97,11 @@ public class MyArrayList<E> implements MyList<E> {
         return new Itr();
     }
 
+    @Override
+    public String toString() {
+        return "MyArrayList{" + "container=" + Arrays.toString(container) + '}';
+    }
+
     private class Itr implements Iterator<E> {
 
         private int expectedModCount = modCount;
