@@ -13,20 +13,24 @@ import java.util.Objects;
  * @since 0.1
  */
 public class MySet<E> implements Iterable<E> {
-    MyList<E> list;
+    private MyList<E> list;
 
     public MySet() {
         this.list = new MyArrayList<>();
     }
 
-    public void add(E model) {
+    private boolean checker(E model) {
         boolean checker = true;
-        for (Iterator<E> itr = iterator(); itr.hasNext();) {
+        for (Iterator<E> itr = iterator(); itr.hasNext(); ) {
             if (itr.next().equals(model)) {
                 checker = false;
             }
         }
-        if (checker) {
+        return checker;
+    }
+
+    public void add(E model) {
+        if (checker(model)) {
             list.add(model);
         }
     }
