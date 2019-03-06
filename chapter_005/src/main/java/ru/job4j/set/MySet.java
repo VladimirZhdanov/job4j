@@ -21,7 +21,7 @@ public class MySet<E> implements Iterable<E> {
 
     private boolean checker(E model) {
         boolean checker = true;
-        for (Iterator<E> itr = iterator(); itr.hasNext(); ) {
+        for (Iterator<E> itr = iterator(); itr.hasNext();) {
             if (itr.next().equals(model)) {
                 checker = false;
             }
