@@ -23,12 +23,17 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
+        //Если ссылка равна ссылки, то true. Тот же самый обьект.
         if (this == o) {
             return true;
         }
+        //Для любой ненулевой ссылки на значение х выражение х. equals(null) должно возвращать false.
+        //Так же проверяем классы, если разные то не равны.
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+        //Определились, что o это инстанс того же класса, что и сравневаемый и начинаем проверку полей.
+        //Для примитивов мы просто сравниваем на прямую, а для ссылочных типов используем внутрении реализации equals
         User user = (User) o;
         return children == user.children && Objects.equals(name, user.name) && Objects.equals(birthday, user.birthday);
     }
