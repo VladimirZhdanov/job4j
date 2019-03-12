@@ -161,12 +161,25 @@ public class MyHashMap<K, V> implements Iterable<MyHashMap.Node> {
     boolean delete(K key) {
         int i = setIndex(key);
         boolean result = false;
+        for (Node value: table) {
+            if (value != null) {
+                if (value.key.equals(key)) {
+                    this.table[i] = null;
+                    result = true;
+                    modCount++;
+                    amount--;
+                    break;
+                }
+            }
+        }
+        /*int i = setIndex(key);
+        boolean result = false;
         if (this.table[i] != null) {
             this.table[i] = null;
             result = true;
             modCount++;
             amount--;
-        }
+        }*/
         return result;
     }
 }
