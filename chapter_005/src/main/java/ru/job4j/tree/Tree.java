@@ -22,7 +22,7 @@ public class Tree<E extends Comparable<E>> implements MyTree<E> {
     public boolean add(E parent, E child) {
         boolean result = false;
         Optional<Node<E>> parentNode = this.findBy(parent);
-        if (parentNode.isPresent()) {
+        if (parentNode.isPresent() && this.findBy(child).isEmpty()) {
             parentNode.get().add(new Node<>(child));
             modCount++;
             result = true;
@@ -48,15 +48,37 @@ public class Tree<E extends Comparable<E>> implements MyTree<E> {
         return rsl;
     }
 
+    public boolean isBinary() {
+        boolean result = true;
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(root);
+        while (!data.isEmpty()) {
+            Node<E> element = data.poll();
+            if (element != null) {
+                if (element.leaves().size() > 2) {
+                    result = false;
+                }
+                for (Node<E> child : element.leaves()) {
+                    data.offer(child);
+                }
+            }
+        }
+        return result;
+    }
+
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-
             private Queue<Node<E>> data = new LinkedList<>();
             private int expectedModCount = modCount;
 
             {
                 this.data.offer(root);
+            }
+
+            public int getSizeOfData() {
+                return data.size();
             }
 
             @Override
@@ -70,11 +92,15 @@ public class Tree<E extends Comparable<E>> implements MyTree<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 } else {
+                    E result = null;
                     Node<E> element = this.data.poll();
-                    for (Node<E> value : element.leaves()) {
-                        data.offer(value);
+                    if (element != null) {
+                        for (Node<E> value : element.leaves()) {
+                            data.offer(value);
+                        }
+                        result = element.getValue();
                     }
-                    return element.getValue();
+                    return result;
                 }
             }
 
