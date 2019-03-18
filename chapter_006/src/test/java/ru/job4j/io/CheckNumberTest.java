@@ -29,4 +29,11 @@ public class CheckNumberTest {
         CheckNumber cn = new CheckNumber();
         assertThat(cn.isNumber(in), is(false));
     }
+
+    @Test
+    public void whenHugeNumber() {
+        ByteArrayInputStream in = new ByteArrayInputStream("31234567891234567891234567890".getBytes());
+        CheckNumber cn = new CheckNumber();
+        assertTrue(cn.isNumber(in));
+    }
 }

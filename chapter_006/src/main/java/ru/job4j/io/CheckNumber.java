@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 
 /**
  * CheckNumber
@@ -18,8 +19,10 @@ public class CheckNumber {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new InputStreamReader(in));
-            var i = Integer.parseInt(br.readLine());
-            if (i % 2 == 0) {
+            String line =  br.readLine();
+            int lastSymbol = line.charAt(line.length() - 1);
+            BigInteger justNumberOfInputStream = new BigInteger(line);
+            if (lastSymbol % 2 == 0) {
                 result = true;
             }
         } catch (IOException e) {
