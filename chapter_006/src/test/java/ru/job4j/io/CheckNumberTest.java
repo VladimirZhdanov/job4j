@@ -36,4 +36,11 @@ public class CheckNumberTest {
         CheckNumber cn = new CheckNumber();
         assertTrue(cn.isNumber(in));
     }
+
+    @Test
+    public void whenCharInTheMiddleThenFalse() {
+        ByteArrayInputStream in = new ByteArrayInputStream("123мамамылараму1234".getBytes());
+        CheckNumber cn = new CheckNumber();
+        assertThat(cn.isNumber(in), is(false));
+    }
 }

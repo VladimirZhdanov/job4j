@@ -12,19 +12,18 @@ import java.io.*;
 public class CheckNumber {
     boolean isNumber(InputStream in) {
         var result = false;
-        ByteArrayInputStream bais = null;
         BufferedReader br = null;
         try {
             br = new BufferedReader(new InputStreamReader(in));
-            String line = br.readLine();
-            byte[] lineOfBytes =  in.readAllBytes();
+            byte[] lineOfBytes = in.readAllBytes();
+            //String line = br.readLine();
             for (byte value : lineOfBytes) {
+                System.out.println(value);
                 if (value < 48 || value > 57) {
                     throw new NumberFormatException();
                 }
-                //System.out.println(value);
             }
-            int lastSymbol = line.charAt(line.length() - 1);
+            int lastSymbol = lineOfBytes[lineOfBytes.length - 1];
             if (lastSymbol % 2 == 0) {
                 result = true;
             }
