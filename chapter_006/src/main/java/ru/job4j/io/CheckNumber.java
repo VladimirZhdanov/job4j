@@ -1,6 +1,8 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 /**
  * CheckNumber
@@ -12,11 +14,8 @@ import java.io.*;
 public class CheckNumber {
     boolean isNumber(InputStream in) {
         var result = false;
-        BufferedReader br = null;
         try {
-            br = new BufferedReader(new InputStreamReader(in));
             byte[] lineOfBytes = in.readAllBytes();
-            //String line = br.readLine();
             for (byte value : lineOfBytes) {
                 System.out.println(value);
                 if (value < 48 || value > 57) {
