@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -14,18 +13,20 @@ import java.util.Arrays;
 public class AbuseWords {
 
     void dropAbuses(InputStream in, OutputStream out, String[] abuse) {
-        try {
-            BufferedReader bReader = new BufferedReader(new InputStreamReader(in));
-            BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(out));
-            ArrayList<String> input = new ArrayList<>(Arrays.asList(bReader.readLine().split(" ")));
-            for (String badWord : abuse) {
-                if (input.contains(badWord)) {
-                    input.remove(badWord);
-                }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out))) {
+            while (reader.ready()) {
+                reader.lines()
+                        .map(line -> Arrays.stream(abuse)
+                                .reduce(line, (word, badWord) -> word.replaceAll(badWord, ""))
+                        ).map(String::trim).forEach(line -> {
+                    try {
+                        writer.write(line);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
-            String result = String.join(" ", input);
-            bWriter.write(result);
-            System.out.println(bWriter);
         } catch (IOException e) {
             e.printStackTrace();
         }

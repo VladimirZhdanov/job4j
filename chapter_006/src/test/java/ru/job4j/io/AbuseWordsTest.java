@@ -8,6 +8,13 @@ import java.io.ByteArrayOutputStream;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
+/**
+ * AbuseWordsTest
+ *
+ * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
 public class AbuseWordsTest {
 
     @Test
