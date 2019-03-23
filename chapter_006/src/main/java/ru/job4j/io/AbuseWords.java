@@ -2,6 +2,7 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * AbuseWords
@@ -18,7 +19,7 @@ public class AbuseWords {
             while (reader.ready()) {
                 reader.lines()
                         .map(line -> Arrays.stream(abuse)
-                                .reduce(line, (word, badWord) -> word.replaceAll(badWord, ""))
+                                .reduce(line, (words, badWord) -> words.replaceAll(badWord, ""))
                         ).map(String::trim).forEach(line -> {
                     try {
                         writer.write(line);
