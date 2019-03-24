@@ -44,6 +44,6 @@ public class MyQueue<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return secondStack.iterator();
+        return firstStack.iterator();
     }
 }

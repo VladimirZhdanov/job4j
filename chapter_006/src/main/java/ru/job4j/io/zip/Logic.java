@@ -1,5 +1,6 @@
 package ru.job4j.io.zip;
 
+import org.apache.commons.cli.*;
 import ru.job4j.tracker.ConsoleInput;
 
 import java.io.File;
@@ -19,17 +20,36 @@ import java.util.zip.ZipOutputStream;
  * @since 0.1
  */
 public class Logic {
+    public static void main(String[] args) throws ParseException {
+        String[] parameters = new String[3];
 
-    public static void main(String[] args) {
-        args = new String[3];
-        ConsoleInput input = new ConsoleInput();
-        args[0] = input.ask("Please, enter a path to a directory in order to archive, format: c:\\abc\\def...:");
-        args[1] = input.ask("Please, enter a extension to ignore, format: .*:");
-        args[2] = input.ask("Please, enter a new name to a new zip-file:");
-        Args parameters = new Args(args);
+        Options options = new Options();
+        options.addOption(new Option("d", "directory", true, "directory"));
+        options.addOption(new Option("e", "exclude", true, "exclude"));
+        options.addOption(new Option("o", "output", true, "output"));
+        CommandLineParser parser = new DefaultParser();
+        CommandLine commandLine = parser.parse(options, args);
+
+        if (commandLine.hasOption("d")) {
+            String[] arguments = commandLine.getOptionValues("d");
+            parameters[0] = arguments[0];
+            System.out.println("We try to directory with: " + arguments[0]);
+        }
+        if (commandLine.hasOption("e")) {
+            String[] arguments = commandLine.getOptionValues("e");
+            parameters[1] = arguments[0];
+            System.out.println("We try to exclude with: " + arguments[0]);
+        }
+        if (commandLine.hasOption("o")) {
+            String[] arguments = commandLine.getOptionValues("o");
+            parameters[2] = arguments[0];
+            System.out.println("We try to output with: " + arguments[0]);
+        }
+
+        Args params = new Args(parameters);
         Logic logic = new Logic();
-        logic.list(parameters.directory(), parameters.exclude());
-        logic.zipping(parameters);
+        logic.list(params.directory(), params.exclude());
+        logic.zipping(params);
     }
 
     public void zipping(Args args) {

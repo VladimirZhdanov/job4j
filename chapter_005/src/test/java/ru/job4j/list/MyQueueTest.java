@@ -32,9 +32,9 @@ public class MyQueueTest {
 
     @Test
     public void shouldSequentiallyReturnItems() {
-        MatcherAssert.assertThat(iterator.next(), is(3));
-        MatcherAssert.assertThat(iterator.next(), is(2));
-        MatcherAssert.assertThat(iterator.next(), is(1));
+        assertThat(iterator.next(), is(3));
+        assertThat(iterator.next(), is(2));
+        assertThat(iterator.next(), is(1));
         //iterator.next();
     }
 
