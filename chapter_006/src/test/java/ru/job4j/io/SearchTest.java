@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 public class SearchTest {
 
     @Test
-    public void whenInputStreamEvenThenTrue() throws IOException {
+    public void whenSomething() throws IOException {
         Search search = new Search();
 
         String dir = System.getProperty("java.io.tmpdir");
@@ -38,8 +38,8 @@ public class SearchTest {
         subDirFile.createNewFile();
 
         List<String> ext = Arrays.asList("doc");
-        List<File> result = search.files(dir, ext);
         List<File> expected = Arrays.asList(firstFile, subDirFile);
+        List<File> result = search.files(dir, ext);
         assertThat(result.toString(), is(expected.toString()));
     }
 }
