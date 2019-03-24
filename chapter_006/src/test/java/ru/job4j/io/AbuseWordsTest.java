@@ -25,7 +25,6 @@ public class AbuseWordsTest {
         AbuseWords aw = new AbuseWords();
         aw.dropAbuses(in, out, abuseWords);
         String expected = "that was unbelievable";
-        String result = aw.toString();
         assertThat(out.toString(), is(expected));
     }
 

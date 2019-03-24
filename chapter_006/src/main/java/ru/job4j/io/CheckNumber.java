@@ -17,7 +17,7 @@ public class CheckNumber {
         try {
             byte[] lineOfBytes = in.readAllBytes();
             for (byte value : lineOfBytes) {
-                System.out.println(value);
+                //System.out.println(value);
                 if (value < 48 || value > 57) {
                     throw new NumberFormatException();
                 }
