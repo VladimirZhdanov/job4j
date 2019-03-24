@@ -24,7 +24,7 @@ public class SearchTest {
         Search search = new Search();
 
         String dir = System.getProperty("java.io.tmpdir");
-        File parentDir = new File(dir + "Main");
+        File parentDir = new File(dir + "/Main");
         parentDir.mkdir();
         File subDir = new File(parentDir.getPath() + "/Subdir");
         subDir.mkdir();
