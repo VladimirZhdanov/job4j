@@ -11,11 +11,11 @@ import java.util.Scanner;
  * @since 0.1
  */
 public class UserInput implements Input {
-    private Scanner inpute = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
 
     @Override
-    public String ask(String question) {
-        System.out.println(question);
-        return inpute.nextLine();
+    public String ask() {
+        //System.out.println(question);
+        return input.nextLine();
     }
 }

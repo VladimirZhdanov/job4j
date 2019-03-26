@@ -12,9 +12,14 @@ import java.util.regex.Pattern;
  * @since 0.1
  */
 public class ConsoleChat {
+    private Input input;
+
+    public ConsoleChat(Input input) {
+        this.input = input;
+    }
 
     public static void main(String[] args) {
-        ConsoleChat consoleChat = new ConsoleChat();
+        ConsoleChat consoleChat = new ConsoleChat(new UserInput());
         consoleChat.toStartChat();
     }
 
@@ -24,12 +29,9 @@ public class ConsoleChat {
         joiner.add("Type your request.");
         joiner.add("In order to stop our assistant David type 'Stop' and 'Go on' to continue.Type 'End' to exit.");
         System.out.println(joiner);
-        String log = "C:\\Projects\\job4j\\chapter_006\\src\\main\\java\\ru\\job4j\\io\\consolechat\\log.txt";
-        //Pattern patternStop = Pattern.compile("(?i)Stop", Pattern.CASE_INSENSITIVE);
-        //Pattern patternGoOn = Pattern.compile("Go on", Pattern.CASE_INSENSITIVE);
-        //Pattern patternEnd = Pattern.compile("End", Pattern.CASE_INSENSITIVE);
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(log));
-             Scanner scanner = new Scanner(System.in)) {
+        String log = System.getProperty("java.io.tmpdir") + "log.txt";
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(log))) {
+            Input userInput = this.input;
             bw.write(new Date() + System.lineSeparator() + joiner.toString() + System.lineSeparator());
             boolean userWantToChat = true;
             boolean userWantToChatWithBot = true;
@@ -38,7 +40,7 @@ public class ConsoleChat {
             System.out.println(botMassage);
             bw.write(new Date() + " Bot: " + botMassage + System.lineSeparator());
             while (userWantToChat) {
-                userMassage = scanner.nextLine();
+                userMassage = userInput.ask();
                 bw.write(new Date() + " User: " + userMassage + System.lineSeparator());
                 if (userMassage.equalsIgnoreCase("End")) {
                     userWantToChat = false;

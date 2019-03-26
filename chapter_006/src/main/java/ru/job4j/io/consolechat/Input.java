@@ -8,5 +8,5 @@ package ru.job4j.io.consolechat;
  * @since 0.1
  */
 interface Input {
-    String ask(String question);
+    String ask();
 }
