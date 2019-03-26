@@ -29,7 +29,7 @@ public class ConsoleChat {
         joiner.add("Type your request.");
         joiner.add("In order to stop our assistant David type 'Stop' and 'Go on' to continue.Type 'End' to exit.");
         System.out.println(joiner);
-        String log = System.getProperty("java.io.tmpdir") + "log.txt";
+        String log = System.getProperty("java.io.tmpdir") + "/log.txt";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(log))) {
             Input userInput = this.input;
             bw.write(new Date() + System.lineSeparator() + joiner.toString() + System.lineSeparator());
