@@ -11,12 +11,11 @@ import java.util.*;
  * @since 0.1
  */
 public class Search {
-    List<File> files(String parent, List<String> exts) {
+    private List<File> getFilesFrom(String parent) {
         List<File> result = new ArrayList<>();
         File start = new File(parent);
         Queue<File> data = new LinkedList<>();
         File[] deepDirectory = null;
-
         data.offer(start);
         while (!data.isEmpty()) {
             File file = data.poll();
@@ -28,10 +27,19 @@ public class Search {
                     }
                 }
             } else {
-                for (String value : exts) {
-                    if (file != null && file.getName().endsWith(value)) {
-                        result.add(file);
-                    }
+                result.add(file);
+            }
+        }
+        return result;
+    }
+
+    public List<File> filter(String parent, List<String> exts) {
+        List<File> result = new ArrayList<>();
+        List<File> preparedList = getFilesFrom(parent);
+        for (String value : exts) {
+            for (File file : preparedList) {
+                if (file.getName().endsWith(value)) {
+                    result.add(file);
                 }
             }
         }

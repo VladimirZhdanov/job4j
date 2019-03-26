@@ -39,7 +39,7 @@ public class SearchTest {
 
         List<String> ext = Arrays.asList("doc");
         List<File> expected = Arrays.asList(firstFile, subDirFile);
-        List<File> result = search.files(dir, ext);
+        List<File> result = search.filter(dir, ext);
         assertThat(result.toString(), is(expected.toString()));
     }
 }
