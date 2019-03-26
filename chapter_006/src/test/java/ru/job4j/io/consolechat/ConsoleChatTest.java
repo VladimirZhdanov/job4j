@@ -25,7 +25,7 @@ public class ConsoleChatTest {
     @Test
     public void whenCheckConsoleChat() {
         List<String> containerOfLog = new ArrayList<>();
-        String logFilePath = System.getProperty("java.io.tmpdir") + "log.txt";
+        String logFilePath = System.getProperty("java.io.tmpdir") + "/log.txt";
         String[] userInputSimulate = {"Hey", "stop", "miss you", "go on", "end"};
         SimulateInput simulateInput = new SimulateInput(userInputSimulate);
         ConsoleChat consoleChat = new ConsoleChat(simulateInput);
