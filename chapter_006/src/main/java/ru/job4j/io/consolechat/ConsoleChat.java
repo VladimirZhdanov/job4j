@@ -1,6 +1,8 @@
 package ru.job4j.io.consolechat;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -74,11 +76,13 @@ public class ConsoleChat {
     }
 
     private String getPhrase() {
-        String phrasesDirectory = "C:\\Projects\\job4j\\chapter_006\\src\\main\\resources\\сhat\\phrases.txt";
+        String phrasesDirectory = Objects.requireNonNull(ConsoleChat.class.getClassLoader().getResource("phrases.txt")).getPath();
         ArrayList<String> phrases = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(phrasesDirectory))) {
+        try (FileInputStream fins = new FileInputStream(phrasesDirectory);
+             InputStreamReader inputStreamReader = new InputStreamReader(fins);
+             BufferedReader reader = new BufferedReader(inputStreamReader)) {
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 phrases.add(line);
             }
         } catch (FileNotFoundException e) {
