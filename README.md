@@ -4,3 +4,4 @@
 # job4j.com
 
 I'm learning java and set of other tools for a job.
+"В курсе производилась работа с ветках git."
