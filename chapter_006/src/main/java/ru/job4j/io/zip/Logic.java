@@ -48,13 +48,13 @@ public class Logic {
 
         Args params = new Args(parameters);
         Logic logic = new Logic();
-        logic.list(params.directory(), params.exclude());
         logic.zipping(params);
     }
 
     public void zipping(Args args) {
         List<File> listForZipping = this.list(args.directory(), args.exclude());
-        try (ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(args.output()))) {
+        File files = new File(args.directory() + "\\" + args.output());
+        try (ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(files, false))) {
             for (File file : listForZipping) {
                 zip.putNextEntry(new ZipEntry(file.getAbsolutePath().substring(args.directory().length())));
             }
