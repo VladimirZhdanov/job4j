@@ -18,7 +18,6 @@ import static org.junit.Assert.*;
 public class LogicTest {
 
     @Test
-    @Ignore
     public void when() {
         Logic logic = new Logic();
         var parameters = new String[3];
@@ -26,7 +25,6 @@ public class LogicTest {
         parameters[1] = ".txt";
         parameters[2] = "project.zip";
         Args args = new Args(parameters);
-        //logic.list(args.directory(), args.exclude());
         logic.zipping(args);
         assertThat(new File((args.directory() + "\\" + args.output())).exists(), is(true));
     }

@@ -4,8 +4,10 @@ import org.apache.commons.cli.*;
 import ru.job4j.tracker.ConsoleInput;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -56,7 +58,12 @@ public class Logic {
         File files = new File(args.directory() + "\\" + args.output());
         try (ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(files, false))) {
             for (File file : listForZipping) {
-                zip.putNextEntry(new ZipEntry(file.getAbsolutePath().substring(args.directory().length())));
+                FileInputStream fis = new FileInputStream(file);
+                zip.putNextEntry(new ZipEntry(file.getAbsolutePath().substring(args.directory().length() + 1)));
+                byte[] buffer = fis.readAllBytes();
+                zip.write(buffer);
+                fis.close();
+                zip.closeEntry();
             }
         } catch (IOException e) {
             e.printStackTrace();
