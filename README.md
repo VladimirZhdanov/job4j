@@ -4,5 +4,3 @@
 # job4j.com
 
 I'm learning java and set of other tools for a job.
-"Создания новой ветки через IDEA"
-"В курсе производилась работа с ветках git."
