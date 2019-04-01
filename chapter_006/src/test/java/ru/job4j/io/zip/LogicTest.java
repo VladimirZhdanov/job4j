@@ -1,5 +1,6 @@
 package ru.job4j.io.zip;
 
+import org.apache.commons.cli.ParseException;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -18,14 +19,18 @@ import static org.junit.Assert.*;
 public class LogicTest {
 
     @Test
-    public void when() {
-        Logic logic = new Logic();
-        var parameters = new String[3];
-        parameters[0] = "C:\\projects\\job4j";
-        parameters[1] = ".txt";
-        parameters[2] = "project.zip";
+    public void when() throws ParseException {
+        String log = System.getProperty("java.io.tmpdir") + "/project.zip";
+        var parameters = new String[6];
+        parameters[0] = "-d";
+        parameters[1] = "C:\\projects\\job4j";
+        parameters[2] = "-e";
+        parameters[3] = ".txt";
+        parameters[4] = "-o";
+        parameters[5] = "project.zip";
         Args args = new Args(parameters);
+        Logic logic = new Logic();
         logic.zipping(args);
-        assertThat(new File((args.directory() + "\\" + args.output())).exists(), is(true));
+        assertThat(new File((log)).exists(), is(true));
     }
 }
