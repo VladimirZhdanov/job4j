@@ -47,31 +47,31 @@ public class ConsoleChat {
             String userMassage;
             String botMassage = "Let's get started!";
             System.out.println(botMassage);
-            writeLog(" Bot: ", botMassage);
+            this.writeLog(" Bot: ", botMassage);
             while (true) {
                 userMassage = this.input.ask();
                 writeLog(" User: ", userMassage);
                 if (this.END.equalsIgnoreCase(userMassage)) {
                     botMassage = "Bye bye!";
-                    writeLog(" Bot: ", botMassage);
+                    this.writeLog(" Bot: ", botMassage);
                     break;
                 }
                 if (this.STOP.equalsIgnoreCase(userMassage)) {
                     userWantToChatWithBot = false;
                     botMassage = "Have a good day, if u want to continue, type 'Go on'.";
                     System.out.println(botMassage);
-                    writeLog(" Bot: ", botMassage);
+                    this.writeLog(" Bot: ", botMassage);
                 }
                 if (userWantToChatWithBot) {
                     botMassage = this.getPhrase();
                     System.out.println(botMassage);
-                    writeLog(" Bot: ", botMassage);
+                    this.writeLog(" Bot: ", botMassage);
                 }
                 if (this.GO.equalsIgnoreCase(userMassage)) {
                     userWantToChatWithBot = true;
                     System.out.println(botMassage);
                     botMassage = "Hello again! My life in serving to you!";
-                    writeLog(" Bot: ", botMassage);
+                    this.writeLog(" Bot: ", botMassage);
                 }
             }
     }
