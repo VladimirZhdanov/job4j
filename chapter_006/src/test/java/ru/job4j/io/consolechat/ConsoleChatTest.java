@@ -40,8 +40,8 @@ public class ConsoleChatTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String lineTenExpected = containerOfLog.get(10);
-        String lineThirteenExpected = containerOfLog.get(13);
+        String lineTenExpected = containerOfLog.get(6);
+        String lineThirteenExpected = containerOfLog.get(9);
         assertThat(lineTenExpected.endsWith("go on"), is(true));
         assertThat(lineThirteenExpected.endsWith("Bye bye!"), is(true));
     }

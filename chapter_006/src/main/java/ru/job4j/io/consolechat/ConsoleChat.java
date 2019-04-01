@@ -1,10 +1,7 @@
 package ru.job4j.io.consolechat;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * ConsoleChat
@@ -14,7 +11,12 @@ import java.util.regex.Pattern;
  * @since 0.1
  */
 public class ConsoleChat {
-    private Input input;
+    private final Input input;
+    private static final String LN = System.lineSeparator();
+    private final String STOP = "Stop";
+    private final String END = "End";
+    private final String GO = "Go on";
+
 
     public ConsoleChat(Input input) {
         this.input = input;
@@ -25,62 +27,60 @@ public class ConsoleChat {
         consoleChat.toStartChat();
     }
 
-    public void toStartChat() {
-        StringJoiner joiner = new StringJoiner(System.lineSeparator());
-        joiner.add("Hello Ser! My name is David, I'm personal assistant!");
-        joiner.add("Type your request.");
-        joiner.add("In order to stop our assistant David type 'Stop' and 'Go on' to continue.Type 'End' to exit.");
-        System.out.println(joiner);
+    private void writeLog(String who, String massage) {
         String log = System.getProperty("java.io.tmpdir") + "/log.txt";
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(log))) {
-            Input userInput = this.input;
-            bw.write(new Date() + System.lineSeparator() + joiner.toString() + System.lineSeparator());
-            boolean userWantToChat = true;
-            boolean userWantToChatWithBot = true;
-            String userMassage;
-            String botMassage = "Let's get started!";
-            System.out.println(botMassage);
-            bw.write(new Date() + " Bot: " + botMassage + System.lineSeparator());
-            while (userWantToChat) {
-                userMassage = userInput.ask();
-                bw.write(new Date() + " User: " + userMassage + System.lineSeparator());
-                if (userMassage.equalsIgnoreCase("End")) {
-                    userWantToChat = false;
-                    userWantToChatWithBot = false;
-                    String goodBye = "Bye bye!";
-                    bw.write(new Date() + " Bot: " + goodBye);
-                    System.out.println(goodBye);
-                    break;
-                }
-                if (userMassage.equalsIgnoreCase("Stop")) {
-                    userWantToChatWithBot = false;
-                    botMassage = "Have a good day, if u want to continue, type 'Go on'.";
-                    System.out.println(botMassage);
-                    bw.write(new Date() + " Bot: " + botMassage + System.lineSeparator());
-                }
-                if (userWantToChatWithBot) {
-                    botMassage = this.getPhrase();
-                    System.out.println(botMassage);
-                    bw.write(new Date() + " Bot: " + botMassage + System.lineSeparator());
-                }
-                if (userMassage.equalsIgnoreCase("Go on")) {
-                    userWantToChatWithBot = true;
-                    botMassage = "Hello again! My life in serving to you!";
-                    System.out.println(botMassage);
-                    bw.write(new Date() + " Bot: " + botMassage + System.lineSeparator());
-                }
-            }
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(log, true))) {
+            bw.write(new Date() + who + massage + LN);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+        public void toStartChat() {
+        StringJoiner joiner = new StringJoiner(LN);
+        joiner.add("Hello Ser! My name is David, I'm personal assistant!");
+        joiner.add("Type your request.");
+        joiner.add("In order to stop our assistant David type 'Stop' and 'Go on' to continue.Type 'End' to exit.");
+        System.out.println(joiner);
+
+            boolean userWantToChatWithBot = true;
+            String userMassage;
+            String botMassage = "Let's get started!";
+            System.out.println(botMassage);
+            writeLog(" Bot: ", botMassage);
+            while (true) {
+                userMassage = this.input.ask();
+                writeLog(" User: ", userMassage);
+                if (this.END.equalsIgnoreCase(userMassage)) {
+                    botMassage = "Bye bye!";
+                    writeLog(" Bot: ", botMassage);
+                    break;
+                }
+                if (this.STOP.equalsIgnoreCase(userMassage)) {
+                    userWantToChatWithBot = false;
+                    botMassage = "Have a good day, if u want to continue, type 'Go on'.";
+                    System.out.println(botMassage);
+                    writeLog(" Bot: ", botMassage);
+                }
+                if (userWantToChatWithBot) {
+                    botMassage = this.getPhrase();
+                    System.out.println(botMassage);
+                    writeLog(" Bot: ", botMassage);
+                }
+                if (this.GO.equalsIgnoreCase(userMassage)) {
+                    userWantToChatWithBot = true;
+                    System.out.println(botMassage);
+                    botMassage = "Hello again! My life in serving to you!";
+                    writeLog(" Bot: ", botMassage);
+                }
+            }
+    }
+
     private String getPhrase() {
-        String phrasesDirectory = Objects.requireNonNull(ConsoleChat.class.getClassLoader().getResource("phrases.txt")).getPath();
         ArrayList<String> phrases = new ArrayList<>();
-        try (FileInputStream fins = new FileInputStream(phrasesDirectory);
-             InputStreamReader inputStreamReader = new InputStreamReader(fins);
-             BufferedReader reader = new BufferedReader(inputStreamReader)) {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("phrases.txt"))))
+        ) {
             String line;
             while ((line = reader.readLine()) != null) {
                 phrases.add(line);
@@ -91,8 +91,6 @@ public class ConsoleChat {
             e.printStackTrace();
         }
         Random rnd = new Random();
-        String phrase = phrases.get(rnd.nextInt(phrases.size()));
-        return phrase;
+        return phrases.get(rnd.nextInt(phrases.size()));
     }
 }
-
