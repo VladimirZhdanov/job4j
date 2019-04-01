@@ -2,10 +2,7 @@ package ru.job4j.io.consolechat;
 
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +23,10 @@ public class ConsoleChatTest {
     public void whenCheckConsoleChat() {
         List<String> containerOfLog = new ArrayList<>();
         String logFilePath = System.getProperty("java.io.tmpdir") + "/log.txt";
+        File log = new File(logFilePath);
+        if (log.exists()) {
+            log.delete();
+        }
         String[] userInputSimulate = {"Hey", "stop", "miss you", "go on", "end"};
         SimulateInput simulateInput = new SimulateInput(userInputSimulate);
         ConsoleChat consoleChat = new ConsoleChat(simulateInput);

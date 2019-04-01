@@ -13,9 +13,9 @@ import java.util.*;
 public class ConsoleChat {
     private final Input input;
     private static final String LN = System.lineSeparator();
-    private final String STOP = "Stop";
-    private final String END = "End";
-    private final String GO = "Go on";
+    private static final String STOP = "Stop";
+    private static final String END = "End";
+    private static final String GO = "Go on";
 
 
     public ConsoleChat(Input input) {
