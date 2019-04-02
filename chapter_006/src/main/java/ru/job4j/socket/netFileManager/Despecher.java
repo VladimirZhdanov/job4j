@@ -7,6 +7,7 @@ import java.util.function.Function;
 public class Despecher {
     private Map<String, Function<String, Boolean>> dispatch = new HashMap<>();
     private String mainDirectory;
+    //private B
 
     public Despecher(String mainDirectory) {
         this.mainDirectory = mainDirectory;
