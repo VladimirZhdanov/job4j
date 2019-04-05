@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.Properties;
 
 public class Server {
+    public static String greeting;
     private static final String LN = System.lineSeparator();
     private final Socket socket;
 
@@ -18,28 +19,28 @@ public class Server {
         try (PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
         ) {
-            String greeting = Joiner.on(LN).join(
+            greeting = Joiner.on(LN).join(
                     "DIR            Displays a list of files and subdirectories in a directory.",
-                    "CD             Displays the name of or changes the current directory.",
-                    "CD..           Back on a directory.",
+                    "CD..           Back up a directory.",
                     "CD/            Back to the root.",
                     "_:             Go to the certain directory.",
                     "MKDIR          Creates a directory.",
                     "RMDIR          Removes a directory.",
                     "DEL            Deletes one or more files.",
                     "COPY           Copies one or more files to another location.",
+                    "HELP           To show the helper.",
                     "EXIT           To exit."
             );
             out.println(greeting);
             boolean userWantsContinue = true;
             String userRequest = null;
-            Despecher despecher = new Despecher(mainDirectory, in, out);
+            Dispatcher dispatcher = new Dispatcher(mainDirectory, in, out);
             do {
                 out.println("wait for command ...");
                 out.println();
                 userRequest = in.readLine().toLowerCase();
                 System.out.println(userRequest);
-                userWantsContinue = despecher.checkUserRequest(userRequest);
+                userWantsContinue = dispatcher.checkUserRequest(userRequest);
             } while (userWantsContinue);
         } catch (IOException e) {
             e.printStackTrace();
