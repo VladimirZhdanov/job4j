@@ -99,7 +99,7 @@ public class Dispatcher {
     }
 
     /**
-     * //todo
+     * Delete one files.
      *
      * @return boolean type.
      */
@@ -107,20 +107,20 @@ public class Dispatcher {
         return deleteFile -> {
             try {
                 this.findFile();
-                out.printf("Are you sure that you want to delete this file '%s' Y / N%s? ", buffer.getName(), LN);
+                out.printf("Are you sure that you want to delete this file '%s' Y / N?%s", buffer.getName(), LN);
                 out.println();
                 String request = in.readLine();
-                while (!request.equalsIgnoreCase("Y") || !request.equalsIgnoreCase("N")) {
+                while (!"Y".equalsIgnoreCase(request) && !"N".equalsIgnoreCase(request)) {
                     out.println("Enter a correct answer ...");
                     out.println();
                     request = in.readLine();
                 }
-                if (request.equalsIgnoreCase("Y")) {
+                if ("Y".equalsIgnoreCase(request)) {
                     if (buffer.delete()) {
-                        out.printf("%s is deleted", buffer.getAbsolutePath());
+                        out.printf("%s is deleted%s", buffer.getAbsolutePath(), LN);
                     }
                 } else {
-                    out.printf("Thank you for saving the '%s's' life", buffer.getName());
+                    out.printf("Thank you for saving the '%s's' life%s", buffer.getName(), LN);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -128,8 +128,6 @@ public class Dispatcher {
             return true;
         };
     }
-
-    //if (request.equalsIgnoreCase("N"))
 
     /**
      * Creates a new directory.
