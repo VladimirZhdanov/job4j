@@ -1,4 +1,4 @@
-package ru.job4j.socket.net_file_manager;
+package ru.job4j.socket.filemanager;
 
 import com.google.common.base.Joiner;
 import java.io.*;
