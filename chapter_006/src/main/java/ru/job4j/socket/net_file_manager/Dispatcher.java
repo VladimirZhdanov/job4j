@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -46,6 +48,7 @@ public class Dispatcher {
         this.setDispatch("rmdir", this.rmdir());
         this.setDispatch("cf", this.createFile());
         this.setDispatch("del", this.deleteFile());
+        this.setDispatch("df", this.download());
         return this;
     }
 
@@ -96,6 +99,42 @@ public class Dispatcher {
             }
             return true;
         };
+    }
+
+    /**
+     * Download a file.
+     *
+     * @return boolean type.
+     */
+    public Function<String, Boolean> download() {
+        return download -> {
+            try {
+                this.findFile();
+                out.printf("%s for downloading%s", buffer.getName(), LN);
+                out.println("Enter a path to download ...");
+                out.println();
+                String userRequest = in.readLine();
+                File targetPlace = new File(userRequest + buffer.getName());
+                System.out.println(targetPlace.getAbsolutePath());
+                if (this.download(this.buffer, targetPlace)) {
+                    out.println("Downloaded!");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        };
+    }
+
+    private boolean download(File fileForDownLoad, File targetPlace) {
+        boolean result = false;
+        try {
+            Files.copy(fileForDownLoad.toPath(), targetPlace.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            result = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     /**
