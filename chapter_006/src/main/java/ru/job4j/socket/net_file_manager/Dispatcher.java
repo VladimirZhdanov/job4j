@@ -43,6 +43,9 @@ public class Dispatcher {
         this.setDispatch("_:", this.goTo());
         this.setDispatch("help", this.showHelper());
         this.setDispatch("mkdir", this.mkdir());
+        this.setDispatch("rmdir", this.rmdir());
+        this.setDispatch("cf", this.createFile());
+        this.setDispatch("del", this.deleteFile());
         return this;
     }
 
@@ -73,6 +76,62 @@ public class Dispatcher {
     }
 
     /**
+     * Create a new file.
+     *
+     * @return boolean type.
+     */
+    public Function<String, Boolean> createFile() {
+        return createFile -> {
+            try {
+                this.findDirectory();
+                out.println("Enter a name of a file ...");
+                out.println();
+                String nameOfFile = in.readLine();
+                this.buffer = new File(this.buffer.getAbsolutePath(), nameOfFile);
+                if (buffer.createNewFile()) {
+                    out.printf("%s is created%s", buffer.getAbsolutePath(), LN);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        };
+    }
+
+    /**
+     * //todo
+     *
+     * @return boolean type.
+     */
+    public Function<String, Boolean> deleteFile() {
+        return deleteFile -> {
+            try {
+                this.findFile();
+                out.printf("Are you sure that you want to delete this file '%s' Y / N%s? ", buffer.getName(), LN);
+                out.println();
+                String request = in.readLine();
+                while (!request.equalsIgnoreCase("Y") || !request.equalsIgnoreCase("N")) {
+                    out.println("Enter a correct answer ...");
+                    out.println();
+                    request = in.readLine();
+                }
+                if (request.equalsIgnoreCase("Y")) {
+                    if (buffer.delete()) {
+                        out.printf("%s is deleted", buffer.getAbsolutePath());
+                    }
+                } else {
+                    out.printf("Thank you for saving the '%s's' life", buffer.getName());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        };
+    }
+
+    //if (request.equalsIgnoreCase("N"))
+
+    /**
      * Creates a new directory.
      *
      * @return boolean type.
@@ -89,13 +148,15 @@ public class Dispatcher {
                     check = Pattern.matches("[a-zA-Z]*\\s{0}\\d*", userRequest);
                 }
                 while (!check) {
-                    out.println("Enter new name follow this pattern [a-zA-Z]*\\s{0}\\d* ...");
+                    out.println("Enter a new name follow this pattern [a-zA-Z]*\\s{0}\\d* ...");
                     out.println();
                     userRequest = in.readLine();
                     check = Pattern.matches("[a-zA-Z]*\\s{0}\\d*", userRequest);
                 }
-                this.buffer = new File(this.pathToCurrentDirectory,userRequest);
-                buffer.mkdir();
+                this.buffer = new File(this.pathToCurrentDirectory, userRequest);
+                if (buffer.mkdir()) {
+                    out.printf("%s is created%s", buffer.getName(), LN);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -109,8 +170,11 @@ public class Dispatcher {
      * @return boolean type.
      */
     public Function<String, Boolean> rmdir() {
-        return exit -> {
-
+        return rmdir -> {
+            this.findDirectory();
+            if (buffer.delete()) {
+                out.printf("%s is removed%s", buffer.getName(), LN);
+            }
             return true;
         };
     }
@@ -122,24 +186,9 @@ public class Dispatcher {
      */
     public Function<String, Boolean> goTo() {
         return goTo -> {
-            try {
-                out.println("Enter a directory ...");
-                out.println();
-                String userRequest = in.readLine();
-                if (userRequest != null) {
-                    this.buffer = new File(userRequest);
-                }
-                while (!this.buffer.isDirectory()) {
-                    out.println("Enter a correct path ...");
-                    out.println();
-                    userRequest = in.readLine();
-                    this.buffer = new File(userRequest);
-                }
-                pathToCurrentDirectory = buffer.getAbsolutePath();
-                out.println(pathToCurrentDirectory);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            this.findDirectory();
+            pathToCurrentDirectory = buffer.getAbsolutePath();
+            out.println(pathToCurrentDirectory);
             return true;
         };
     }
@@ -201,6 +250,44 @@ public class Dispatcher {
             out.println(pathToCurrentDirectory);
             return true;
         };
+    }
+
+    private void findDirectory() {
+        try {
+            out.println("Enter a directory ...");
+            out.println();
+            String userRequest = in.readLine();
+            if (userRequest != null) {
+                this.buffer = new File(userRequest);
+            }
+            while (!this.buffer.isDirectory()) {
+                out.println("Enter a correct path ...");
+                out.println();
+                userRequest = in.readLine();
+                this.buffer = new File(userRequest);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void findFile() {
+        try {
+            out.println("Enter a path to a file ...");
+            out.println();
+            String userRequest = in.readLine();
+            if (userRequest != null) {
+                this.buffer = new File(userRequest);
+            }
+            while (!this.buffer.isFile()) {
+                out.println("Enter a correct path to the file ...");
+                out.println();
+                userRequest = in.readLine();
+                this.buffer = new File(userRequest);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showDirectory(File directory) {

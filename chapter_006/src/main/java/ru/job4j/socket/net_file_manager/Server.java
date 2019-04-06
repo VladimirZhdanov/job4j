@@ -26,7 +26,8 @@ public class Server {
                     "_:             Go to the certain directory.",
                     "MKDIR          Creates a directory.",
                     "RMDIR          Removes a directory.",
-                    "DEL            Deletes one or more files.",
+                    "CF             Create a new file.",
+                    "DEL            Delete one or more files.",
                     "COPY           Copies one or more files to another location.",
                     "HELP           To show the helper.",
                     "EXIT           To exit."
