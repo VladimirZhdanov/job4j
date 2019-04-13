@@ -10,12 +10,12 @@ import org.apache.commons.cli.*;
  * @since 0.1
  */
 public class Args {
-    private String directory;
-    private String name;
-    private String match;
-    private String fullMatch;
-    private String regular;
-    private String output;
+    private String directory = null;
+    private String name = null;
+    private Boolean match = true;
+    private Boolean fullMatch = false;
+    private Boolean regular = false;
+    private String output = null;
     private String[] args;
 
     public Args(String[] args) throws ParseException {
@@ -31,15 +31,15 @@ public class Args {
         return name;
     }
 
-    public String match() {
+    public Boolean match() {
         return match;
     }
 
-    public String fullMatch() {
+    public Boolean fullMatch() {
         return fullMatch;
     }
 
-    public String regular() {
+    public Boolean regular() {
         return regular;
     }
 
@@ -70,18 +70,24 @@ public class Args {
         }
         if (commandLine.hasOption("m")) {
             String[] arguments = commandLine.getOptionValues("m");
-            this.match = arguments[0];
-            System.out.println("We try to match with: " + arguments[0]);
+            this.match = true;
+            this.fullMatch = false;
+            this.regular = false;
+            System.out.println("We try with match");
         }
         if (commandLine.hasOption("f")) {
             String[] arguments = commandLine.getOptionValues("f");
-            this.fullMatch = arguments[0];
-            System.out.println("We try to full match with: " + arguments[0]);
+            this.match = false;
+            this.fullMatch = true;
+            this.regular = false;
+            System.out.println("We try with full match");
         }
         if (commandLine.hasOption("r")) {
             String[] arguments = commandLine.getOptionValues("r");
-            this.regular = arguments[0];
-            System.out.println("We try regular with: " + arguments[0]);
+            this.match = false;
+            this.fullMatch = false;
+            this.regular = true;
+            System.out.println("We try with regular");
         }
         if (commandLine.hasOption("o")) {
             String[] arguments = commandLine.getOptionValues("o");
