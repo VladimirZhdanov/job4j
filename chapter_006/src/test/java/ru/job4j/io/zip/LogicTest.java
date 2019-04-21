@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 public class LogicTest {
 
     @Test
+    @Ignore
     public void when() throws ParseException {
         String log = System.getProperty("java.io.tmpdir") + "/project.zip";
         var parameters = new String[6];
