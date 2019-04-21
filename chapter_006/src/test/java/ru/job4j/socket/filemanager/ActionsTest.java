@@ -26,7 +26,7 @@ public class ActionsTest {
 
     @Before
     public void createFilesForTesting() throws IOException {
-        File dirTest = new File(System.getProperty("java.io.tmpdir") + "/Main");
+        File dirTest = new File(System.getProperty("java.io.tmpdir") + "/MainFM");
         dirTest.mkdir();
         File firstDir = new File(dirTest, "firstDir");
         File secondDir = new File(dirTest, "secondDir");
