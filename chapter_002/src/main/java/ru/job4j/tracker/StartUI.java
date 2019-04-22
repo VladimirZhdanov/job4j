@@ -18,7 +18,7 @@ public class StartUI {
     /**
      * The tracker.
      */
-    private final Tracker tracker;
+    private final ITracker tracker;
     /**
      * Give a data from a client.
      */
@@ -29,7 +29,7 @@ public class StartUI {
      * @param tracker The tracker.
      * @param output
      */
-    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
+    public StartUI(Input input, ITracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
         this.output = output;
@@ -41,7 +41,7 @@ public class StartUI {
     private boolean working = true;
 
     public void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker, this.output);
+        MenuTracker menu = new MenuTracker(this.input, (Tracker) this.tracker, this.output);
         menu.fillActions(this);
         List<Integer> range = menu.getRangeOfMenu();
         do {
