@@ -6,10 +6,8 @@ import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Item;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,7 +23,8 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public void setTableItems() {
         try (PreparedStatement prepStatement =
                      this.connection.prepareStatement(
-                             "create table if not exists items (id serial primary key, item_name varchar(250)," +
+                             "create table if not exists items (id serial primary key, item_name varchar(250),"
+                                     +
                                      " description text, created timestamp, comments text);")
         ) {
             prepStatement.executeUpdate();
@@ -45,6 +44,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                     config.getProperty("username"),
                     config.getProperty("password")
             );
+            this.setTableItems();
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
@@ -53,36 +53,111 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public void close() throws Exception {
-
+        if (this.connection != null) {
+            this.connection.close();
+        }
     }
 
     @Override
     public Item add(Item item) {
-        return null;
+        try (PreparedStatement prepStatement = connection.prepareStatement("insert into items(item_name, description, created, comments) values (?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS)) {
+            prepStatement.setString(1, item.getName());
+            prepStatement.setString(2, item.getDescription());
+            prepStatement.setTimestamp(3, new Timestamp(item.getCreated()));
+            prepStatement.setString(4, item.getComments());
+            prepStatement.executeUpdate();
+            ResultSet generatedKeys = prepStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                item.setId(String.valueOf(generatedKeys.getInt(1)));
+                System.out.println(generatedKeys.getInt(1));
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return item;
     }
 
     @Override
     public boolean replace(String id, Item item) {
-        return false;
+        try (PreparedStatement prepStatement = connection.prepareStatement("update items set item_name = ?, description = ?, created = ?, comments = ? where id = ?;")) {
+            prepStatement.setString(1, item.getName());
+            prepStatement.setString(2, item.getDescription());
+            prepStatement.setTimestamp(3, new Timestamp(item.getCreated()));
+            prepStatement.setString(4, item.getComments());
+            prepStatement.setInt(5, Integer.parseInt(id.trim()));
+            prepStatement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return true;
     }
 
     @Override
     public boolean delete(String id) {
-        return false;
+        try (PreparedStatement prepStatement = connection.prepareStatement("delete from items where id = ?;")) {
+            prepStatement.setInt(1, Integer.parseInt(id.trim()));
+            prepStatement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return true;
     }
 
     @Override
     public List<Item> findAll() {
-        return null;
+        List<Item> result = new ArrayList<>();
+        try (PreparedStatement prepStatement = this.connection.prepareStatement("select * from items;")) {
+            ResultSet rs = prepStatement.executeQuery();
+            while (rs.next()) {
+                result.add(new Item(
+                                rs.getString("item_name"),
+                                rs.getString("description"),
+                                rs.getString("id")
+                        )
+                );
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return result;
     }
 
     @Override
     public List<Item> findByName(String key) {
-        return null;
+        List<Item> result = new ArrayList<>();
+        try (PreparedStatement prepStatement = this.connection.prepareStatement("select * from items where item_name = ?")) {
+            prepStatement.setString(1, key);
+            ResultSet rs = prepStatement.executeQuery();
+            while (rs.next()) {
+                result.add(new Item(
+                                rs.getString("item_name"),
+                                rs.getString("description"),
+                                rs.getString("id")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override
     public Item findById(String id) {
-        return null;
+        Item item = null;
+        try (PreparedStatement prepStatement = this.connection.prepareStatement("select * from items where id = ?;")) {
+            prepStatement.setInt(1, Integer.parseInt(id.trim()));
+            ResultSet rs = prepStatement.executeQuery();
+            while (rs.next()) {
+                item = new Item(
+                        rs.getString("item_name"),
+                        rs.getString("description"),
+                        rs.getInt("id")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 }

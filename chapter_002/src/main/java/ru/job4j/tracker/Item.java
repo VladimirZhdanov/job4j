@@ -14,7 +14,7 @@ public class Item {
     private String name;
     private String description;
     private long created;
-    private List<String> comments;
+    private String comments;
 
     public Item() {
     }
@@ -22,11 +22,16 @@ public class Item {
         this.name = name;
         this.description = description;
     }
+
     public Item(String name, String description, long created) {
         this.name = name;
         this.description = description;
         this.created = created;
     }
+
+    public Item(String itemName, String description, String id) {
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -38,6 +43,14 @@ public class Item {
     }
     public String getDescription() {
         return this.description;
+    }
+
+    public long getCreated() {
+        return created;
+    }
+
+    public String getComments() {
+        return comments;
     }
 
     @Override

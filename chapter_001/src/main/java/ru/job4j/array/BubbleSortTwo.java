@@ -34,8 +34,9 @@ public class BubbleSortTwo {
         int size = this.size();
         for (int out = size - 1; out >= 1; out--) {  //Внешний цикл
             for (int in = 0; in < out; in++) {       //Внутренний цикл
-                if (array.get(in) > array.get(in + 1))               //Если порядок элементов нарушен
+                if (array.get(in) > array.get(in + 1)) {               //Если порядок элементов нарушен
                     toSwap(in, in + 1);             //вызвать метод, меняющий местами
+                }
             }
         }
     }
