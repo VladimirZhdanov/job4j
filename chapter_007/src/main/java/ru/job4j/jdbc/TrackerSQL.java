@@ -79,28 +79,36 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public boolean replace(String id, Item item) {
+        var result = false;
         try (PreparedStatement prepStatement = connection.prepareStatement("update items set item_name = ?, description = ?, created = ?, comments = ? where id = ?;")) {
             prepStatement.setString(1, item.getName());
             prepStatement.setString(2, item.getDescription());
             prepStatement.setTimestamp(3, new Timestamp(item.getCreated()));
             prepStatement.setString(4, item.getComments());
             prepStatement.setInt(5, Integer.parseInt(id.trim()));
-            prepStatement.executeUpdate();
+            //prepStatement.executeUpdate();
+            if (prepStatement.executeUpdate() == 0) {
+                result = true;
+            }
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return true;
+        return result;
     }
 
     @Override
     public boolean delete(String id) {
+        var result = false;
         try (PreparedStatement prepStatement = connection.prepareStatement("delete from items where id = ?;")) {
             prepStatement.setInt(1, Integer.parseInt(id.trim()));
-            prepStatement.executeUpdate();
+            //prepStatement.executeUpdate();
+            if (prepStatement.executeUpdate() == 0) {
+                result = true;
+            }
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return true;
+        return result;
     }
 
     @Override
