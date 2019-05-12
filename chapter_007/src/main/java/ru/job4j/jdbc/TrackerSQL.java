@@ -87,7 +87,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             prepStatement.setString(4, item.getComments());
             prepStatement.setInt(5, Integer.parseInt(id.trim()));
             //prepStatement.executeUpdate();
-            if (prepStatement.executeUpdate() == 0) {
+            if (prepStatement.executeUpdate() > 0) {
                 result = true;
             }
         } catch (Exception e) {
@@ -102,7 +102,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         try (PreparedStatement prepStatement = connection.prepareStatement("delete from items where id = ?;")) {
             prepStatement.setInt(1, Integer.parseInt(id.trim()));
             //prepStatement.executeUpdate();
-            if (prepStatement.executeUpdate() == 0) {
+            if (prepStatement.executeUpdate() > 0) {
                 result = true;
             }
         } catch (Exception e) {
