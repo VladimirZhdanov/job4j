@@ -52,7 +52,7 @@ public class StartApp {
         Config config = new Config();
         StoreSQL storeSQL = new StoreSQL(config);
         storeSQL.init();
-        storeSQL.generate(1000000);
+        storeSQL.generate(50000);
 
         File fileFromStoreXML = new File("fileFromStoreXML.xml");
         checkFileCreation(fileFromStoreXML);
