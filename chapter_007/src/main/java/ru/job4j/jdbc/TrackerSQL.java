@@ -16,6 +16,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     private Connection connection;
 
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+    }
+
     public TrackerSQL() {
         this.init();
     }
@@ -23,7 +27,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public void setTableItems() {
         try (PreparedStatement prepStatement =
                      this.connection.prepareStatement(
-                             "create table if not exists items (id serial primary key, item_name varchar(250),"
+                             "create table if not exists items (id serial primary key not null, item_name varchar(250),"
                                      +
                                      " description text, created timestamp, comments text);")
         ) {
