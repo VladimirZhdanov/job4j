@@ -11,6 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * TrackerSQL
+ *
+ * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
 public class TrackerSQL implements ITracker, AutoCloseable {
     private static final Logger LOGGER = LogManager.getLogger(TrackerSQL.class.getName());
 

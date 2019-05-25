@@ -3,6 +3,13 @@ package ru.job4j.jdbc;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+/**
+ * UsageLog4j2
+ *
+ * @author Vladimir Zhdanov (mailto:constHomeSpb@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
 public class UsageLog4j2 {
 
     private static final Logger LOG = LogManager.getLogger(UsageLog4j2.class.getName());
