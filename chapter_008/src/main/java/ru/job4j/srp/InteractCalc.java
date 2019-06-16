@@ -13,17 +13,35 @@ public class InteractCalc {
     private final Pattern pattern = Pattern.compile("(-?\\d+\\.?\\d*)?\\s*(\\S)\\s*(-?\\d+\\.?\\d*)", Pattern.CASE_INSENSITIVE);
     private Calculator calculator;
     private Scanner scanner;
+
+    public Double getResult() {
+        return this.result;
+    }
+
+    public void setResult(Double result) {
+        this.result = result;
+    }
+
     private Double result;
+
+    public HashMap<String, BiConsumer<Double, Double>> getOperations() {
+        return this.operations;
+    }
+
+    public void setOperations(HashMap<String, BiConsumer<Double, Double>> operations) {
+        this.operations = operations;
+    }
+
     private HashMap<String, BiConsumer<Double, Double>> operations;
 
     public InteractCalc() {
         this.calculator = new Calculator();
         this.scanner = new Scanner(System.in);
-        operations = new HashMap<>();
+        this.operations = new HashMap<>();
         this.loudOperations();
     }
 
-    private void loudOperations() {
+    protected void loudOperations() {
         this.operations.put("+", add());
         this.operations.put("-", subtract());
         this.operations.put("*", multiply());
@@ -64,7 +82,7 @@ public class InteractCalc {
         System.out.println("Exit.");
     }
 
-    private boolean calculate(String input) {
+    protected boolean calculate(String input) {
         boolean checker = checkInput(input);
         if (checker) {
             //System.out.println("ok");
@@ -84,20 +102,19 @@ public class InteractCalc {
                 var secondValue = Double.valueOf(getValue);
                 this.operations.get(operator).accept(firstValue, secondValue);
                 this.result = calculator.getResult();
-                System.out.println(this.result);
             }
             if (indexS == 0 && this.result != null) {
                 var getValue = input.substring(indexE).trim();
                 var value = Double.valueOf(getValue);
                 this.operations.get(operator).accept(this.result, value);
                 this.result = calculator.getResult();
-                System.out.println(this.result);
             }
+            System.out.println(this.result);
         }
-        return true;
+        return checker;
     }
 
-    private boolean checkInput(String input) {
+    protected boolean checkInput(String input) {
         Matcher matcher = pattern.matcher(input);
         return matcher.find();
     }
